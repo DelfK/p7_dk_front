@@ -12,13 +12,15 @@ import Header from './components/Header'
 export default {
   name: 'App',
   components: {
-    'header-top': Header
+    'header-top': Header,
+    
   }
 }
 </script>
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap');
+  
 
   #app {
     font-family: 'Montserrat', sans-serif;
@@ -68,9 +70,9 @@ export default {
  }
 
  .btn-primary:hover{
-   background-color:#fff;
-   border: 1px solid #92BFBA;
-   color: #92BFBA;
+   background-color:#FFD8D8;
+   border: 1px solid #fff;
+   color: #fff;
    cursor:pointer;
  }
 
@@ -92,14 +94,14 @@ export default {
  }
 
  button:focus{
-    border: 3px dotted #ffd8d8;
+    border: 1px solid #999;
     outline: none;
 }
 
 /*FORMS*/
 
 label{
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #999
     
 }
@@ -111,6 +113,10 @@ label{
     margin-left: 14px;
     margin-top: -0.75rem;
     margin-bottom: 0.9375rem;
+}
+
+.errorMsg{
+   color: #f57f6c
 }
 
 .form-group--error + .error{
@@ -148,6 +154,7 @@ form input:hover{
 
 form input:focus{
     outline: none;
+    border: 1px solid #999;
 }
 
  

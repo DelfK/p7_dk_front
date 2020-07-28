@@ -1,0 +1,77 @@
+<template>
+    <div class='dropdown'>
+
+    <img src="../assets/triangle.png" alt="">
+        <ul>
+            <li>Profil</li>
+            <li>Paramètres</li>
+            <li>Modération</li>
+            <div class="btn" v-on:click="logout">Déconnexion</div>
+        </ul>
+
+    </div>
+</template>
+
+<script>
+    export default {
+        name: 'DropDownMenu',
+        methods: {
+            logout () {
+            this.$store.dispatch('logout')
+            .then( () =>{
+                this.$router.push({ name : 'splash'})
+            })
+        }
+      }
+        
+    }
+</script>
+
+<style scoped>
+.dropdown{
+    width: 220px;
+    border: 1px solid #eee;
+    padding: 2px 0;
+    position: absolute;
+    top: 80px;
+    right: 15px;
+    background-color: #92BFBA;
+    font-size: 0.9rem;
+    
+}
+
+.dropdown img{
+    position: absolute;
+    width: 12%;
+    top: -5%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+
+.dropdown .btn{
+    cursor: pointer;
+    font-weight: 300;
+}
+
+ul{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+ul li{
+    padding: 8px 10px;
+    border-bottom: 1px solid #eee;
+    color: #FFF;
+}
+
+ul li:hover, .dropdown .btn:hover{
+    font-weight: 600;
+    
+}
+
+ul li:last-child{
+    border: none;
+}
+
+</style>
