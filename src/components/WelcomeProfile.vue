@@ -25,10 +25,19 @@
     
         },
 
+
         methods:{
             toggleMenu: function() {
             this.$store.commit('SHOW_HIDE_MENU')
+            },
+            
+            close(e) {
+                if (!this.$el.contains(e.target) && this.showMenu ) {
+                    this.$store.commit('SHOW_HIDE_MENU')
+                    console.log(this.showMenu)
             }
+    }
+
         },
 
         computed: {
@@ -38,6 +47,7 @@
         },
 
         created () {
+            window.addEventListener("click", this.close );
             console.log('created')
             const id = JSON.parse(localStorage.getItem('user')).employeeId
             console.log('created')
@@ -55,8 +65,12 @@
             })
             
         
-        }
-        
+        },
+
+        beforeDestroy() {
+            window.removeEventListener("click", this.close);
+        },
+                
 
         
         

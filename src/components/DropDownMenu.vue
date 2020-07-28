@@ -16,13 +16,17 @@
     export default {
         name: 'DropDownMenu',
 
+        
+
+        
+
         methods: {
             logout () {
             this.$store.dispatch('logout')
             .then( () =>{
                 this.$router.push({ name : 'splash'})
             })
-        }
+            }
       }
         
     }
