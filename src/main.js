@@ -20,7 +20,13 @@ const router = new VueRouter({
   mode: 'history'
 })
 
-// Navigation guards / redirect to login 
+new Vue({
+  router,
+  store,
+  render: h => h(App)
+}).$mount('#app')
+
+// Navigation guards / redirect to splash screen 
 router.beforeEach((to, from, next) => {
   if(to.matched.some( record => record.meta.requiresAuth)){
     console.log('user :' + store.state.user)
@@ -35,12 +41,6 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
-
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
 
 
 

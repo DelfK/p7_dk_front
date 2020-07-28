@@ -28,6 +28,7 @@ export default {
     font-size: 16px;
     line-height: 1.6;
     color: #333;
+    
   
   }
 
@@ -37,14 +38,14 @@ export default {
 
   #app .container{
     max-width: 1200px;
-    padding: 0 15px;
+    padding: 100px 0;
     margin-left: auto;
     margin-right: auto;
   }
 
   #app .small-container{
     max-width: 800px;
-    padding: 20px 15px;
+    padding: 0 15px;
     margin-left: auto;
     margin-right: auto;
   }

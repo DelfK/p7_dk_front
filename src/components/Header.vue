@@ -22,6 +22,7 @@ export default{
         'welcomeprofile': WelcomeProfile,
         'dropdown': DropDownMenu
     },
+
     computed: {
       showMenu() {
         return this.$store.state.showMenu

@@ -5,7 +5,7 @@
         <ul>
             <li>Profil</li>
             <li>Paramètres</li>
-            <li>Modération</li>
+            <li>Commentaires</li>
             <div class="btn" v-on:click="logout">Déconnexion</div>
         </ul>
 
@@ -15,6 +15,7 @@
 <script>
     export default {
         name: 'DropDownMenu',
+
         methods: {
             logout () {
             this.$store.dispatch('logout')
@@ -42,7 +43,7 @@
 
 .dropdown img{
     position: absolute;
-    width: 12%;
+    width: 10%;
     top: -5%;
     left: 50%;
     transform: translate(-50%, -50%)
@@ -50,7 +51,7 @@
 
 .dropdown .btn{
     cursor: pointer;
-    font-weight: 300;
+    font-weight: 400;
 }
 
 ul{
