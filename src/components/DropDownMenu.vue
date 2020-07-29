@@ -34,11 +34,11 @@
 
 <style scoped>
 .dropdown{
-    width: 220px;
+    width: 200px;
     border: 1px solid #eee;
     padding: 2px 0;
     position: absolute;
-    top: 80px;
+    top: 70px;
     right: 15px;
     background-color: #92BFBA;
     font-size: 0.9rem;
@@ -48,7 +48,7 @@
 .dropdown img{
     position: absolute;
     width: 10%;
-    top: -5%;
+    top: -4%;
     left: 50%;
     transform: translate(-50%, -50%)
 }

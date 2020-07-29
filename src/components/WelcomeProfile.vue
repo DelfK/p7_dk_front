@@ -1,7 +1,7 @@
 <template>
     <div class="header_id" v-on:click="toggleMenu()">
         <p>{{profileFirstname}} {{profileName}} </p> 
-        <div>
+        <div class="avatar">
             <a href="#">
                 <img class="responsive-image" v-bind:src="profileImg" alt="">    
             </a>
@@ -84,13 +84,11 @@
      justify-content: flex-end
  }
 
- .header_id img{
-     padding: 5px;
-     
- }
+ 
 
  .header_id p{
      margin: auto 10px;
+     color: #8f897d;
      
  } 
 

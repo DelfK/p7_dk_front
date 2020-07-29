@@ -5,18 +5,19 @@
         <ul>
             <li v-bind:key="index" v-for="(article, index) in allArticles">
                 <div class="articleResult">
-                    <div class="vignette">
-                        <img v-bind:src="article.imageUrl" alt="">
-                    </div>
+                    <router-link v-bind:to="`/article/${article.employee_id}/${article.id}`">
+                        <div class="vignette">
+                            <img v-bind:src="article.imageUrl" alt="">
+                        </div>
+                    </router-link>
                     <div class="details">
                         
                         <div>
-                            <h3>{{article.title}}</h3>
-                            <p>{{article.content.slice(0, 100)}}...</p>
+                            <router-link v-bind:to="`/article/${article.employee_id}/${article.id}`"><h3>{{article.title}}</h3></router-link>
+                            <p>{{article.content.slice(0, 130)}}...</p>
                         </div>
-                        <div>
-                            <p class="auteur"><span>{{article.first_name}} {{article.name}}</span>  - {{article.dateCreated}}</p>
-
+                        <div class="auteur">
+                            <span>{{article.first_name}} {{article.name}}</span>  - {{article.dateCreated}}
                         </div>
 
                     </div>
@@ -69,39 +70,40 @@ h3{
     margin:0
 }
 
-
-
-
-
 .articleResult{
     display: flex;
-    margin: 25px 0
+    margin: 40px 0
     
 }
 
 .vignette{
     flex: 0 0 30%;
+    height: 140px;
+    overflow:hidden;
+    
     
 }
 
 .vignette img{
     width: 100%;
-    height: auto
+    height: auto;
+    
 }
 
 .details{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin: 0 0 0 15px;
+    margin: 0 0 0 18px;
     flex: 0 0 70%;
-    color: #444
+    color: #444;
+    
 }
 
-.auteur{
-    color: #67a69f;
+.details p{
     font-size: 0.95rem;
 }
+
 
 .auteur span{
     font-weight: 600

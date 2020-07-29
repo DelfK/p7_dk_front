@@ -41,7 +41,7 @@ export default {
 
   #app .container{
     max-width: 1200px;
-    padding: 100px 0;
+    padding: 120px 0;
     margin-left: auto;
     margin-right: auto;
   }
@@ -57,6 +57,19 @@ export default {
     max-width: 100%;
     height: auto;
   }
+
+  .avatar{
+    width: 40px;
+    height: 40px;
+    
+  }
+
+  .auteur{
+    color: #67a69f;
+    font-size: 0.90rem;
+  }
+
+  
 
 
 /*BUTTONS*/
@@ -100,6 +113,11 @@ export default {
  button:focus{
     border: 1px solid #999;
     outline: none;
+}
+
+a{
+  text-decoration: none;
+  color: inherit
 }
 
 /*FORMS*/
