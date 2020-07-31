@@ -9,9 +9,9 @@ import Routes from './Routes'
 
 Vue.config.productionTip = false
 
-Vue.use(VueRouter)
-Vue.use(Vuelidate)
 
+Vue.use(Vuelidate)
+Vue.use(VueRouter)
 
 // create the router
 const router = new VueRouter({
@@ -20,27 +20,34 @@ const router = new VueRouter({
   mode: 'history'
 })
 
+// Navigation guards / redirect to splash screen 
+router.beforeEach((to, from, next) => {
+  
+  if(to.matched.some( record => record.meta.requiresAuth)){
+    if(!store.state.user){
+      next({
+        name: 'splash'
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+})
+
+
+
 new Vue({
   router,
   store,
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');
 
-// Navigation guards / redirect to splash screen 
-router.beforeEach((to, from, next) => {
-  if(to.matched.some( record => record.meta.requiresAuth)){
-    console.log('user :' + store.state.user)
-    if(!store.state.user){
-      next({
-        name: 'splash'
-      })
-    } else {
-      next()
-    }
-  } else {
-    next()
-  }
-})
+export default router;
+
+
+
 
 
 

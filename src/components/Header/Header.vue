@@ -1,6 +1,6 @@
 <template>
  <div class="header">
-     <router-link to="/home"><img src="../assets/icon.png" alt="groupomania"></router-link>
+     <router-link to="/home"><img src="../../assets/icon.png" alt="groupomania"></router-link>
      <div class="header_navigation">
          <welcome v-if="$route.meta.showWelcome"></welcome>
          <dropdown v-if="showMenu"></dropdown>

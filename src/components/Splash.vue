@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Welcome from './Welcome'
+import Welcome from './Header/Welcome'
 
 export default {
     name: 'Splash',

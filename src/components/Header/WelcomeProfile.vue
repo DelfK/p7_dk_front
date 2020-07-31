@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import http from '../services'
+  import http from '../../services'
 
     export default {
         name: 'WelcomeProfile',

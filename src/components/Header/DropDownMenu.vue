@@ -1,11 +1,11 @@
 <template>
     <div class='dropdown'>
 
-    <img src="../assets/triangle.png" alt="">
+    <img src="../../assets/triangle.png" alt="">
         <ul>
-            <li>Profil</li>
+            <li v-on:click="goToProfile">Profil</li>
             <li>Paramètres</li>
-            <li>Commentaires</li>
+            <li v-if="moderator"> Commentaires</li>
             <div class="btn" v-on:click="logout">Déconnexion</div>
         </ul>
 
@@ -13,12 +13,14 @@
 </template>
 
 <script>
+    import http from '../../services'
     export default {
         name: 'DropDownMenu',
-
-        
-
-        
+        data() {
+            return {
+                moderator: false
+            }
+        },
 
         methods: {
             logout () {
@@ -26,8 +28,20 @@
             .then( () =>{
                 this.$router.push({ name : 'splash'})
             })
+            },
+
+            goToProfile(){
+                const id = JSON.parse(localStorage.getItem('user')).employeeId
+                return http
+                .get(`/api/employee/${id}`)
+                .then( response => {
+                        return response.data.first_name  + response.data.name
+                })
+                .then( name => {
+                    this.$router.push(`/${name}`)
+                })
             }
-      }
+        }
         
     }
 </script>
@@ -72,6 +86,7 @@ ul li{
 
 ul li:hover, .dropdown .btn:hover{
     font-weight: 600;
+    cursor: pointer
     
 }
 

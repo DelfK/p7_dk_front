@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Header from './components/Header'
+import Header from './components/Header/Header'
 
 
 export default {
@@ -63,6 +63,10 @@ export default {
     height: 40px;
     
   }
+  .avatarBig{
+    width: 160px;
+    height:160px;
+  }
 
   .auteur{
     color: #67a69f;
@@ -74,9 +78,9 @@ export default {
 
 /*BUTTONS*/
  .btn{
-      padding: 12px 12px 12px 12px;
+      padding: 11px;
       display: inline-block;
-      border-radius: 6px;
+      border-radius: 5px;
       font-weight: 500;
  }
 
@@ -103,6 +107,37 @@ export default {
     border: 1px solid #fff;
     color: #f7f7f7;
     background-color: #FFD8D8;
+    cursor: pointer
+ }
+
+ .btn-edit{
+    border: 1px solid #909090;
+    color: #909090;
+    background-color: #fff;
+    font-size: 0.75rem;
+    border-radius: 3px;
+    padding: 6px;
+ }
+
+ .btn-edit:hover{
+    border: 1px solid #bbb;
+    color: #bbb;
+    background-color: #fff;
+    cursor: pointer
+ }
+
+ .red{
+   border: 1px solid #ff5050;
+    color: #ff5050;
+    background-color: #fff;
+
+ }
+
+ .red:hover{
+   border: 1px solid #ff5050;
+    color: #fff;
+    background-color: #ff5050;
+
  }
 
  button{
@@ -141,6 +176,29 @@ label{
    color: #f57f6c
 }
 
+.validateMsg{
+   color: #00e179;
+   border: 1px solid #00e179;
+   border-radius: 2px;
+   position: relative;
+   padding: 10px 22px 10px 10px;
+   display: inline-block;
+}
+
+.fermer{
+  position: absolute;
+  top: 0;
+  right: 7px;
+  display: inline-block;
+  font-weight: 400
+
+}
+
+.fermer:hover{
+  cursor: pointer
+}
+
+
 .form-group--error + .error{
     display:block;
     color: #f57f6c
@@ -177,6 +235,16 @@ form input:hover{
 form input:focus{
     outline: none;
     border: 1px solid #999;
+}
+
+/*HEADINGS*/
+.subtitle{
+    color: #92BFBA;
+    font-size: 1.2rem
+}
+
+.toggleContent{
+  padding: 20px 0;
 }
 
  
