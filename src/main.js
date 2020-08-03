@@ -13,6 +13,14 @@ Vue.config.productionTip = false
 Vue.use(Vuelidate)
 Vue.use(VueRouter)
 
+const moment = require('moment')
+require('moment/locale/fr')
+ 
+Vue.use(require('vue-moment'), {
+    moment
+})
+
+
 // create the router
 const router = new VueRouter({
   routes: Routes,

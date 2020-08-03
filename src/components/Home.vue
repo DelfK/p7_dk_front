@@ -17,8 +17,18 @@
                             <p>{{article.content.slice(0, 130)}}...</p>
                         </div>
                         <div class="auteur">
-                            <span>{{article.first_name}} {{article.name}}</span>  - {{article.dateCreated}}
+                            <div>
+                                <span>{{article.first_name}} {{article.name}}</span>  - {{ article.dateCreated | moment("dddd Do MMMM YYYY") }}
+                            </div>
+                            <div class="partage">
+                                <div class="comment"></div>
+                                <div class="share">
+                                    <router-link v-bind:to="`/article/${article.employee_id}/${article.id}`"><img class="responsive-image" src="../assets/connection.svg" alt="lien partage"></router-link>
+                                </div>
+                            </div>
                         </div>
+                        
+                        
 
                     </div>
                 </div>
@@ -35,11 +45,14 @@
 
 <script>
     import http from '../services'
+    
+
     export default {
         name: 'Home',
         data() {
             return {
                 allArticles: [],
+                employees:[]
             }
         },
         created(){
@@ -52,11 +65,8 @@
                 }
                 
             })
-        },
-        computed: {
-            
-            
         }
+        
     }
 </script>
 
@@ -104,10 +114,24 @@ h3{
     font-size: 0.95rem;
 }
 
+.auteur {
+    display: flex;
+    justify-content: space-between
+}
+
+.auteur div:first-child{
+    flex: 0 0 94%;
+}
+
+.auteur div:nth-child(2){
+    flex: 0 0 6%;
+}
 
 .auteur span{
     font-weight: 600
 }
+
+
 
 
 

@@ -20,7 +20,7 @@
                             
                         </div>
                         <div>
-                            <div class="lire btn btn-edit red" v-on:click="deleteArticle(article.id)">Supprimer</div>
+                            <div class="lire btn btn-edit red" v-on:click="deleteArticle(article.id, index)">Supprimer</div>
                         </div>   
                     </div>
                     
@@ -38,7 +38,8 @@
             return {
                 articles: [],
                 articleDeleted: false,
-                noArticles: true
+                noArticles: true,
+                
             }
         },
 
@@ -64,18 +65,21 @@
         },
 
         methods: {
-            deleteArticle(artId){
+            deleteArticle(artId, index){
             const id = JSON.parse(localStorage.getItem('user')).employeeId
             return http
             .delete(`/api/employee/${id}/stories/${artId}`)
-            .then( response => {
-                console.log(response.data)
-                this.articleDeleted = true      
+            .then( () => {
+                
+                this.articleDeleted = true
+                this.articles.splice(index, 1)
             })
             },
             toggleValidMessage(){
                 this.articleDeleted = false
-            }
+            }, 
+
+           
         }
 
     }

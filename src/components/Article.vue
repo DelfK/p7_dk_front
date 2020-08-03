@@ -3,12 +3,24 @@
         <div class="small-container">
             <h1>{{articleTitle}}</h1>
             <div class="auteurDate">
-                <div class="auteurImg avatar"><img class="responsive-image" v-bind:src="auteurImg" alt=""></div>
-                <div class="auteur">
-                    <div>{{articleAuteur}}</div>
-                    <div>{{articleDate}}</div>
+                    <div class="profile">
+                        <div class="auteurImg avatar"><img class="responsive-image" v-bind:src="auteurImg" alt=""></div>
+                        <div class="auteur">
+                        <div>{{articleAuteur}}</div>
+                        <div>{{ articleDate | moment("dddd Do MMMM YYYY") }}</div>
+                    </div>
+                    
                 </div>
+                    
+                <div class="partage">
+                    <div class="share" v-on:click="toggleShowForm">
+                        <img class="responsive-image" src="../assets/connection.svg" alt="lien partage">
+                    </div>
+                    
+                </div>
+                
             </div>
+            <ShareForm v-if="visibleShareForm"></ShareForm>
             <div class="articleImg"><img class="responsive-image" v-bind:src="articleImg" alt=""></div>
             <div class="articleContent"><p>{{articleContent}}</p></div>
         </div>
@@ -19,6 +31,7 @@
 
 <script>
     import http from '../services'
+    import ShareForm from './ShareForm'
     export default {
         name: 'Article',
         data() {
@@ -30,8 +43,20 @@
                 articleImg: null,
                 articleContent: null,
                 id: this.$route.params.id,
-                employeeId: this.$route.params.employee
+                employeeId: this.$route.params.employee,
+                visibleShareForm: false
+                
+                
 
+            }
+        },
+        components:{
+            'ShareForm': ShareForm
+        },
+        methods:{
+            toggleShowForm(){
+                this.visibleShareForm= !this.visibleShareForm
+                
             }
         },
 
@@ -50,18 +75,38 @@
                 }
 
             )
-        }
+        },
+
+         
     }
 </script>
 
 <style scoped>
+
 .auteurDate{
     display: flex;
+    justify-content: space-between
+
+}
+
+.auteurDate {
+    margin: 30px 0 10px 0;
+}
+
+.profile {
+    flex: 0 0 calc(96% -13px);
+    display: flex
+}
+
+.partage{
+    flex: 0 0 6%
 }
 
 .auteur{
-    margin: 0 0 0 13px
+    margin: 0 0 0 13px;  
 }
+
+
 
 .auteur div:first-child{
     font-weight: 600
@@ -71,9 +116,7 @@
     margin: 20px 0;
 }
 
-.auteurDate {
-    margin: 30px 0 45px 0
-}
+
 
 p{
     line-height:2;
@@ -84,4 +127,6 @@ p{
 h1{
     text-align: left
 }
+
+
 </style>

@@ -140,6 +140,10 @@ export default {
 
  }
 
+ .share{
+    cursor: pointer
+}
+
  button{
    font-family: 'Montserrat', sans-serif;
    font-size: 1rem; 
