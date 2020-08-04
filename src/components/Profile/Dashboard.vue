@@ -45,19 +45,19 @@
 </script>
 
 <style  scoped>
+
 .toggledContent{
     border-top: 1px solid #c7dedc
 }
 .nav{
-    margin: 20px 0;
-    display: flex;
-    padding: 5px 
+   display: flex;
+     
 }
 
 .nav_item{
     flex: 0 0 50%;
     text-align: center;
-    padding: 15px 30px;
+    padding: 35px 0;
     font-size: 1.1rem;
     color: #c3c3c3;
     

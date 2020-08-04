@@ -61,17 +61,23 @@ export default {
   .avatar{
     width: 40px;
     height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
     
   }
   .avatarBig{
     width: 160px;
     height:160px;
+    border-radius: 50%;
+    overflow: hidden;
   }
 
   .auteur{
-    color: #67a69f;
+    color: #aaa;
     font-size: 0.90rem;
   }
+
+
 
   
 

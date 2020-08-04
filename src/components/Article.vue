@@ -20,7 +20,10 @@
                 </div>
                 
             </div>
-            <ShareForm v-if="visibleShareForm"></ShareForm>
+            <transition name="fade">
+                <ShareForm v-if="visibleShareForm"></ShareForm>
+            </transition>
+            
             <div class="articleImg"><img class="responsive-image" v-bind:src="articleImg" alt=""></div>
             <div class="articleContent"><p>{{articleContent}}</p></div>
         </div>
@@ -82,6 +85,14 @@
 </script>
 
 <style scoped>
+.fade-enter-active, .fade-leave-active {
+  opacity:1;
+  transition: opacity 250ms ease-out;
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 
 .auteurDate{
     display: flex;
@@ -90,11 +101,11 @@
 }
 
 .auteurDate {
-    margin: 30px 0 10px 0;
+    margin: 30px 0 15px 0;
 }
 
 .profile {
-    flex: 0 0 calc(96% -13px);
+    flex: 0 0 calc(94% -13px);
     display: flex
 }
 
@@ -114,6 +125,20 @@
 
  .articleImg, .articleContent{
     margin: 20px 0;
+}
+
+.share{
+    border-radius: 50%;
+    background-color: #eee;
+    padding: 7px;
+}
+
+.share:hover{
+    background-color: #e6e6e6
+}
+
+.share img{
+    display: block
 }
 
 

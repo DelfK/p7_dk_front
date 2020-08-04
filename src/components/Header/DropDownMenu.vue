@@ -5,6 +5,7 @@
         <ul>
             <li v-on:click="goToProfile">Profil</li>
             <li>Paramètres</li>
+            <li v-on:click="$router.push('/nouvelarticle')">Nouvel article</li>
             <li v-if="moderator"> Commentaires</li>
             <div class="btn" v-on:click="logout">Déconnexion</div>
         </ul>
@@ -18,7 +19,7 @@
         name: 'DropDownMenu',
         data() {
             return {
-                moderator: false
+                moderator: false,
             }
         },
 
@@ -70,6 +71,7 @@
 .dropdown .btn{
     cursor: pointer;
     font-weight: 400;
+    color: #5d5d5d
 }
 
 ul{

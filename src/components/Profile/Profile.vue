@@ -82,6 +82,7 @@ p{
     align-items: center;
     padding: 0 0 40px 0;
     border-bottom: 1px solid #eee;
+    margin: 0 15px;
 }
 
 .fullName p{

@@ -116,28 +116,37 @@ h3{
 
 .auteur {
     display: flex;
-    justify-content: space-between
+    justify-content: space-between;
+    color: #aaa;
 }
 
 .auteur div:first-child{
-    flex: 0 0 94%;
+    flex: 0 0 93%;
 }
 
 .auteur div:nth-child(2){
-    flex: 0 0 6%;
+    flex: 0 0 7%;
 }
 
 .auteur span{
-    font-weight: 600
+    font-weight: 600;
+    color: #67a69f
+   
 }
 
+.share{
+    border-radius: 50%;
+    background-color: #eee;
+    padding: 6px;
+}
 
+.share:hover{
+    background-color: #e6e6e6
+}
 
-
-
-
-
-
+.share img{
+    display: block
+}
 
 ul{
     margin: 0;

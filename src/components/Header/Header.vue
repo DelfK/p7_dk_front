@@ -1,6 +1,9 @@
 <template>
  <div class="header">
      <router-link to="/home"><img src="../../assets/icon.png" alt="groupomania"></router-link>
+     <div v-if="$route.meta.showWelcomeProfile" class="createArticle">
+        <div v-on:click="$router.push('/nouvelarticle')" class="btn btn-edit">Rédiger</div>
+     </div>
      <div class="header_navigation">
          <welcome v-if="$route.meta.showWelcome"></welcome>
          <dropdown v-if="showMenu"></dropdown>
@@ -56,6 +59,23 @@ export default{
 
 .header_navigation{
     width: 300px;
+    
+}
+
+.createArticle {
+    flex: 0 0 82%;
+    text-align: right
+}
+
+.createArticle .btn{
+    background: url('../../assets/edit.svg') no-repeat 10px center;
+    background-size: 18px;
+    padding: 5px 10px 5px 34px;
+}
+
+.createArticle .btn:hover{
+    opacity: 0.8;
+    color: #909090
     
 }
 
