@@ -4,6 +4,8 @@ import VueRouter from 'vue-router'
 import Vuelidate from 'vuelidate'
 import store from './store'
 
+
+
 // get the routes
 import Routes from './Routes'
 
@@ -12,6 +14,7 @@ Vue.config.productionTip = false
 
 Vue.use(Vuelidate)
 Vue.use(VueRouter)
+
 
 const moment = require('moment')
 require('moment/locale/fr')
