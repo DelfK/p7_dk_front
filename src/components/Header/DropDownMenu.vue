@@ -4,7 +4,6 @@
     <img src="../../assets/triangle.png" alt="">
         <ul>
             <li v-on:click="goToProfile">Profil</li>
-            <li>Paramètres</li>
             <li v-on:click="$router.push('/nouvelarticle')">Nouvel article</li>
             <li v-if="moderator"> Commentaires</li>
             <div class="btn" v-on:click="logout">Déconnexion</div>

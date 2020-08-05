@@ -89,6 +89,7 @@
  .header_id p{
      margin: auto 10px;
      color: #8f897d;
+     font-size: 0.9rem
      
  } 
 

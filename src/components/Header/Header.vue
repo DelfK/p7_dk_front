@@ -48,6 +48,7 @@ export default{
     align-items: center;
     background-color: #FFF;
     box-shadow: 2px 1px 3px 1px rgba(0, 0, 0, 0.2);
+    z-index:2
     
     
 }
@@ -58,13 +59,14 @@ export default{
 }
 
 .header_navigation{
-    width: 300px;
+    /*flex: 0 0 28%;*/
     
 }
 
 .createArticle {
-    flex: 0 0 82%;
-    text-align: right
+    flex: 2;
+    text-align: right;
+    padding: 0 20px 0 0;
 }
 
 .createArticle .btn{

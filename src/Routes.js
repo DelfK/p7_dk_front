@@ -5,6 +5,7 @@ import Home from './components/Home'
 import Article from './components/Article'
 import Profile from './components/Profile/Profile'
 import createArticle from './components/createArticle'
+import EditProfile from './components/Profile/EditProfile'
 
 
 
@@ -16,7 +17,7 @@ export default [
     {name:'home', path: '/home', component: Home,  meta: {showWelcomeProfile: true, requiresAuth: true} },
     {name:'article', path: '/article/:employee/:id', component: Article,  meta: {showWelcomeProfile: true, requiresAuth: true} },
     {name:'profile', path: '/:employeeName', component: Profile,  meta: {showWelcomeProfile: true, requiresAuth: true} },
-    {name:'edit', path: '/:employeeName/edit',  meta: {showWelcomeProfile: true, requiresAuth: true} }
+    {name:'edit', path: '/:employeeName/edit', component: EditProfile,  meta: {showWelcomeProfile: true, requiresAuth: true} }
    
     
 ]
