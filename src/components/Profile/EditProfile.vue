@@ -6,28 +6,28 @@
                 <div class="imageEdit">
                     <div class="avatarEdit">
                         <img class="responsive-image" v-bind:src="profileImage" alt="">
-                        <input type="file" id="myFile" name="filename" @change="onFileChange" accept="image/png, image/jpeg">
-                        
+                        <input type="file" id="myFile" ref="file" name="filename" @change="onFileChange" accept="image/png, image/jpeg">  
                     </div>     
                 </div>
+               
                 <p class="errorMsg">{{errorMsg}}</p> 
-                <div class="editSection" :class="{ 'form-group--error': $v.name.$error }">
+                <div class="editSection" :class="{'form-group--error': $v.name.$error }">
                     <label for="nom">Mon nom</label>
-                    <input type="text" id="nom" v-model="name" @input="setName($event.target.value)">
+                    <input ref="name" type="text" id="nom" v-model="name" @input="setName($event.target.value)">
                 </div>
                 <div class="editSection" :class="{ 'form-group--error': $v.firstname.$error }">
                     <label for="prenom">Mon prénom</label>
-                    <input type="text" id="prenom" v-model="firstname" @input="setFirstname($event.target.value)">
+                    <input ref="firstname" type="text" id="prenom" v-model="firstname" @input="setFirstname($event.target.value)">
                 </div>
                 <div class="editSection" :class="{ 'form-group--error': $v.email.$error }">
                     <label for="email">Mon email</label>
-                    <input type="email" id="email" v-model="email" @input="setEmail($event.target.value)">
+                    <input ref="email" type="email" id="email" v-model="email" @input="setEmail($event.target.value)">
                 </div>
                 <div class="error" v-if="!$v.email.required">Ce champs est requis</div>
                 <div class="error" v-if="!$v.email.email">L'email saisi n'est pas valide</div>
 
                 <div class="editSection" :class="{ 'form-group--error': $v.position.$error }">
-                    <label for="poste">Mon poste</label>
+                    <label ref="position" for="poste">Mon poste</label>
                     <input type="text" id="poste" v-model="position" @input="setPosition($event.target.value)">
                 </div>
                 <div class="error" v-if="!$v.position.required">Ce champs est requis</div>
@@ -49,11 +49,13 @@
 <script>
     import http from '../../services'
     import { required, email} from 'vuelidate/lib/validators'
+    
 
     export default {
         name: "EditProfile",
         data() {
             return {
+                file: '',
                 name: null,
                 firstname:null,
                 email: null,
@@ -63,7 +65,8 @@
                 errorMsg: null,
                 validMsg: null,
                 btnSubmit: true,
-                userId: null
+                userId: null,
+                
             }
         },
 
@@ -111,11 +114,13 @@
 
         methods: {
             onFileChange(e) {
-            const file = e.target.files[0];
-            this.profileImage = URL.createObjectURL(file);
+
+           
+            this.file = e.target.files[0]
+            this.profileImage = URL.createObjectURL(this.file);
 
             let img = new Image();
-            img.src = URL.createObjectURL(file)
+            img.src = URL.createObjectURL(this.file)
                 img.onload = () => {
                     if (img.height < img.width) {
                     this.errorMsg = "Merci de choisir une image au format carré ou portrait";
@@ -131,6 +136,59 @@
                 }
             },
 
+            updateProfile() {
+                if(this.btnSubmit){
+                    
+
+                    let formData = new FormData();
+                    let file = this.file
+
+                    if(!file){
+                        return http
+                        .put(`/api/employee/${this.userId}`,
+                            {
+                            
+                                employee:{
+                                    name: this.name,
+                                    firstname: this.firstname,
+                                    email: this.email,
+                                    position: this.position,
+                                    imageUrl: this.profileImage
+                                },
+                                
+                           }
+
+
+                        )
+                        .then((response)=>{
+                            console.log(response.data)
+                        })
+                    }else{
+                        formData.append('name',this.name);
+                        formData.append('firstname',this.firstname);
+                        formData.append('email',this.email);
+                        formData.append('position',this.position);
+                        formData.append('image',file , file.name);
+                        
+                        return http
+                        .put(`/api/employee/${this.userId}`,
+                            formData,
+                            {
+                                headers: {
+                                    'Content-Type': 'multipart/form-data'
+                                }
+                            }
+
+                        )
+                        .then(()=>{
+                            console.log('File OK')
+                        })
+
+                    }
+                }
+                
+            },
+ 
             setEmail(value) {
                 this.email = value
                 this.$v.email.$touch()
@@ -156,33 +214,6 @@
                 this.$v.$touch()
                 if (this.$v.$invalid) {
                     this.submitStatus = 'ERROR'
-                }
-            },
-
-            updateProfile() {
-                if(this.btnSubmit){
-                    console.log('avatar:' +this.profileImage) 
-                    console.log('email:' +this.email) 
-                    console.log('position:' +this.position) 
-
-                    return http
-                    .put(`/api/employee/${this.userId}`,
-                    {
-                        employee : {
-                                name: this.name,
-                                firstname: this.firstname,
-                                email: this.email,
-                                position: this.position ,
-                                image: this.profileImage  
-                            }
-                    })
-                    .then( (response) => {
-                        
-                        console.log('server:' + response.data)
-                            
-                    })
-
-
                 }
             },
 
