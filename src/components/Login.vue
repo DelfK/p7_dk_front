@@ -47,7 +47,7 @@ export default {
     name: 'login',
     data: function(){
         return{
-            email: 'green.rachel@centralperk.com',
+            email: 'rachel.green@centralperk.com',
             password: 'ross',
             submitStatus: null
             

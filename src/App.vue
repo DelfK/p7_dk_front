@@ -187,8 +187,8 @@ label{
 }
 
 .validateMsg{
-   color: #00e179;
-   border: 1px solid #00e179;
+   color: #A8DBA8;
+   border: 1px solid #A8DBA8;
    border-radius: 2px;
    position: relative;
    padding: 10px 22px 10px 10px;

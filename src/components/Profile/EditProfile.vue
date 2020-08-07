@@ -15,10 +15,12 @@
                     <label for="nom">Mon nom</label>
                     <input ref="name" type="text" id="nom" v-model="name" @input="setName($event.target.value)">
                 </div>
+                <div class="error" v-if="!$v.name.required">Ce champs est requis</div>
                 <div class="editSection" :class="{ 'form-group--error': $v.firstname.$error }">
                     <label for="prenom">Mon prénom</label>
                     <input ref="firstname" type="text" id="prenom" v-model="firstname" @input="setFirstname($event.target.value)">
                 </div>
+                <div class="error" v-if="!$v.firstname.required">Ce champs est requis</div>
                 <div class="editSection" :class="{ 'form-group--error': $v.email.$error }">
                     <label for="email">Mon email</label>
                     <input ref="email" type="email" id="email" v-model="email" @input="setEmail($event.target.value)">
@@ -34,10 +36,11 @@
                 
                 
                 <div class="envoyer">
-                    <button v-on:click.prevent="annuler" v-bind:class="{ inactive: !btnSubmit }" class="btn btn-secondary">Annuler</button> 
+                    <button v-on:click.prevent="annuler" class="btn btn-secondary">Annuler</button> 
                     <button v-on:click.prevent="updateProfile" v-bind:class="{ inactive: !btnSubmit }" class="btn btn-primary" type="submit">Mettre à jour</button> 
                     <p v-if="submitStatus === 'ERROR'">Merci de renseigner vos informations</p>
-                    <p v-if="validMsg">{{validMsg}}</p>
+                    <div class="validateMsg" v-if ="validMsg">Votre profil a bien été mis à jour<span class="fermer" v-on:click="toggleValideMsg">x</span></div>
+                
                     
                 </div>
             </form>
@@ -63,8 +66,8 @@
                 profileImage: null,
                 submitStatus: null,
                 errorMsg: null,
-                validMsg: null,
-                btnSubmit: true,
+                validMsg: false,
+                btnSubmit: false,
                 userId: null,
                 
             }
@@ -113,6 +116,10 @@
         },
 
         methods: {
+            
+                
+            
+
             onFileChange(e) {
 
            
@@ -160,8 +167,8 @@
 
 
                         )
-                        .then((response)=>{
-                            console.log(response.data)
+                        .then( () =>{
+                            this.validMsg = true
                         })
                     }else{
                         formData.append('name',this.name);
@@ -180,32 +187,40 @@
                             }
 
                         )
-                        .then(()=>{
-                            console.log('File OK')
+                        .then( () =>{
+                            this.validMsg = true
                         })
 
                     }
                 }
                 
             },
+
+            toggleValideMsg(){
+                this.validMsg = !this.validMsg
+            },
  
             setEmail(value) {
                 this.email = value
+                this.btnSubmit = true
                 this.$v.email.$touch()
             },
 
             setName(value) {
                 this.name = value
+                this.btnSubmit = true
                 this.$v.name.$touch()
             },
 
             setFirstname(value) {
                 this.firstname = value
+                this.btnSubmit = true
                 this.$v.firstname.$touch()
             },
 
             setPosition(value) {
                 this.position = value
+                this.btnSubmit = true
                 this.$v.position.$touch()
             },
 
@@ -321,12 +336,12 @@ form{
 }
 
 .inactive{
-    background-color: #ccc;
+    background-color: #e6e6e6;
     cursor: auto
 }
 
 .inactive:hover{
-    background-color: #ccc;
+    background-color: #e6e6e6;
 }
 
 
