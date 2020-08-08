@@ -25,11 +25,11 @@
                     <label for="title">Titre</label>
                     <input ref="title" type="text" id="title" v-model.trim="title" @input="setTitle($event.target.value)">
                 </div>
-                <div v-if="$v.title.$error">
-                    <div class="error" v-if="!$v.title.required">Ce champs est requis</div>
-                    <div  class="error" v-if="!$v.title.minLength">Le titre doit contenir au moins {{$v.title.$params.minLength.min}} lettres.</div>
-                    <div class="error" v-if="!$v.title.maxlength">Le titre ne doit pas contenir plus de {{$v.title.$params.minLength.min}} lettres.</div>
-                </div>
+                <template v-if="$v.title.$error">
+                    <p class="error" v-if="!$v.title.required">Ce champs est requis</p>
+                    <p  class="error" v-if="!$v.title.minLength">Le titre doit contenir au moins {{$v.title.$params.minLength.min}} lettres.</p>
+                    <p class="error" v-if="!$v.title.maxlength">Le titre ne doit pas contenir plus de {{$v.title.$params.minLength.min}} lettres.</p>
+                </template>
                 
                 
 
@@ -38,11 +38,11 @@
                     <textarea ref="content" id="content" v-model.trim="content" @input="setContent($event.target.value)" rows="20">
                     </textarea>     
                 </div>
-                <div v-if="$v.content.$error">
+                <template v-if="$v.content.$error">
                     <div class="error" v-if="!$v.content.required">Ce champs est requis</div>
                     <div class="error" v-if="!$v.content.minLength">Le contenu doit contenir au moins {{$v.content.$params.minLength.min}} lettres.</div>
                     <div class="error" v-if="!$v.content.maxlength">Le contenu ne doit pas contenir plus de {{$v.content.$params.minLength.min}} lettres.</div>
-                </div>
+                </template>
                 
                 
                 <div class="envoyer">

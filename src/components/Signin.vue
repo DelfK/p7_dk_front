@@ -7,39 +7,46 @@
                     <label for="firstname">Prénom</label>
                     <input  type="text" id="firstname" v-model.trim="firstname" @input="setFirstname($event.target.value)">  
                 </div>
-                <div class="error" v-if="!$v.firstname.required">Ce champs est requis</div>
-                <div class="error" v-if="!$v.firstname.minLength">Votre prénom doit contenir au moins {{$v.firstname.$params.minLength.min}} lettres.</div>
-                <div class="error" v-if="!$v.firstname.maxLength">Votre prénom ne doit pas contenir plus de {{$v.firstname.$params.maxLength.max}} lettres.</div>
-  
+                
+                    <div class="error" v-if="!$v.firstname.required">Ce champs est requis</div>
+                    <div class="error" v-if="!$v.firstname.minLength">Votre prénom doit contenir au moins {{$v.firstname.$params.minLength.min}} lettres.</div>
+                    <div class="error" v-if="!$v.firstname.maxLength">Votre prénom ne doit pas contenir plus de {{$v.firstname.$params.maxLength.max}} lettres.</div>
+                
+                
                 <div :class="{ 'form-group--error': $v.name.$error }">
                     <label for="name">Nom</label>
                     <input  type="text" id="name" v-model.trim="name" @input="setName($event.target.value)">
                 </div>
-                <div class="error" v-if="!$v.name.required">Ce champs est requis</div>
-                <div class="error" v-if="!$v.name.minLength">Votre nom doit contenir au moins {{$v.name.$params.minLength.min}} lettres.</div>
-                <div class="error" v-if="!$v.name.maxLength">Votre nom ne doit pas contenir plus de {{$v.name.$params.maxLength.max}} lettres.</div>
-  
+             
+                    <div class="error" v-if="!$v.name.required">Ce champs est requis</div>
+                    <div class="error" v-if="!$v.name.minLength">Votre nom doit contenir au moins {{$v.name.$params.minLength.min}} lettres.</div>
+                    <div class="error" v-if="!$v.name.maxLength">Votre nom ne doit pas contenir plus de {{$v.name.$params.maxLength.max}} lettres.</div>
+
+              
+                
                 <div :class="{ 'form-group--error': $v.email.$error }">
                     <label for="email">Email</label>
                     <input  type="email" id="email" v-model.trim="email" @input="setEmail($event.target.value)">
                 </div>
-                <div class="error" v-if="!$v.email.required">Ce champs est requis</div>
-                <div class="error" v-if="!$v.email.email">L'email saisi n'est pas valide</div>
-                <div class="error" v-if="!$v.email.maxLength">Votre email ne peut pas contenir plus de {{$v.email.$params.maxLength.max}} lettres.</div>
-  
+                
+                    <div class="error" v-if="!$v.email.required">Ce champs est requis</div>
+                    <div class="error" v-if="!$v.email.email">L'email saisi n'est pas valide</div>
+                    <div class="error" v-if="!$v.email.maxLength">Votre email ne peut pas contenir plus de {{$v.email.$params.maxLength.max}} lettres.</div>
+                
+                
                 <div :class="{ 'form-group--error': $v.password.$error }">
                     <label for="password" >Mot de passe</label>
                     <input type="password" id="password" v-model.trim="password" @input="setPassword($event.target.value)">
                 </div>
-                <div class="error" v-if="!$v.password.required">Ce champs est requis</div>
-                <div class="error" v-if="!$v.password.minLength">Votre mot de passe doit contenir au moins {{$v.password.$params.minLength.min}} lettres.</div>
-                <div class="error" v-if="!$v.password.maxLength">Votre mot de passe ne doit pas contenir plus de {{$v.password.$params.maxLength.max}} lettres.</div>
-                <div class="error" v-if="!$v.password.alphaNum">Votre mot de passe doit contenir au moins un chiffre</div>
+                
+                    <div class="error" v-if="!$v.password.required">Ce champs est requis</div>
+                    <div class="error" v-if="!$v.password.minLength">Votre mot de passe doit contenir au moins {{$v.password.$params.minLength.min}} lettres.</div>
+                    <div class="error" v-if="!$v.password.maxLength">Votre mot de passe ne doit pas contenir plus de {{$v.password.$params.maxLength.max}} lettres.</div>
+                    <div class="error" v-if="!$v.password.alphaNum">Votre mot de passe doit contenir au moins un chiffre</div>
                 
                 <div class="envoyer">
-                    <button v-on:click="sendData" class="btn btn-primary" type="submit">Envoyer</button>
-                    
-                    <p v-if="submitStatus === 'OK' && emailUnique">Merci! Vos informations ont bien été transmises</p>
+                    <button v-bind:class="{ inactive: !btnSubmit }" v-on:click="sendData" class="btn btn-primary" type="submit" :disabled="btnSubmit === false">Envoyer</button>
+                    <p class="validateMsg" v-if="submitStatus === 'OK' && emailUnique && displayConfirmation">Merci! Vos informations ont bien été transmises</p>
                     <p class="errorMsg">{{errorMsg}}</p>
   
                     
@@ -71,7 +78,9 @@ export default {
             password:'',
             submitStatus: null,
             emailUnique: null,
-            errorMsg: null
+            errorMsg: null,
+            btnSubmit: false,
+            displayConfirmation: false
         }
     },
 
@@ -101,25 +110,42 @@ export default {
     methods: {
         setFirstname(value) {
             this.firstname = value
+            this.btnSubmit = true
             this.$v.firstname.$touch()
+            if(this.$v.firstname.$error || !this.name || !this.email || !this.password || !value){
+                this.btnSubmit = false
+            }
         },
         setName(value) {
             this.name = value
+            this.btnSubmit = true
             this.$v.name.$touch()
+            if(this.$v.name.$error || !this.firstname || !this.email || !this.password || !value){
+                this.btnSubmit = false
+            }
         },
         setEmail(value) {
             this.email = value
+            this.btnSubmit = true
             this.$v.email.$touch()
+            if(this.$v.email.$error || !this.name || !this.firstname || !this.password || !value){
+                this.btnSubmit = false
+            }
         },
         setPassword(value) {
             this.password = value
+            this.btnSubmit = true
             this.$v.password.$touch()
+            if(this.$v.password.$error || !this.name || !this.email || !this.firstname || !value){
+                this.btnSubmit = false
+            }
         },
         submit() {
             console.log('submit!')
             this.$v.$touch()
             if (this.$v.$invalid) {
                 this.submitStatus = 'ERROR'
+                
             } else {
                 setTimeout(() => {
                 this.submitStatus = 'OK'
@@ -143,6 +169,12 @@ export default {
 
                     console.log(response.data);
                     this.emailUnique = true
+                    this.name = null
+                    this.firstname = null
+                    this.email = null
+                    this.password = null
+                    this.btnSubmit = false
+                    this.displayConfirmation = true
                     this.$router.push({ name: 'login' });
  
             })
@@ -168,6 +200,14 @@ export default {
         text-align:center
     }
 
+    .inactive{
+    background-color: #e6e6e6;
+    cursor: auto
+    }
+
+    .inactive:hover{
+        background-color: #e6e6e6;
+    }
 
 
 

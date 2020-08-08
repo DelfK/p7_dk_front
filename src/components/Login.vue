@@ -2,7 +2,7 @@
     <div class="container">
         <div class="small-container">
             <h1>Se connecter</h1>
-            <form @submit.prevent="submit">
+            <form>
                 
                 <div :class="{ 'form-group--error': $v.email.$error }">
                     <label for="email">Email</label>
@@ -18,9 +18,7 @@
                 <div class="error" v-if="!$v.password.required">Ce champs est requis</div>
                 
                 <div class="envoyer">
-                    <button v-on:click.prevent="login" class="btn btn-primary" type="submit">Envoyer</button>
-                    
-                    <p v-if="submitStatus === 'ERROR'">Merci de renseigner vos informations</p>
+                    <button v-bind:class="{ inactive: !btnSubmit }" v-on:click.prevent="login" class="btn btn-primary" type="submit" :disabled="btnSubmit === false">Envoyer</button>
                     <p class="errorMsg">{{$store.state.errMsg}}</p>
                     
                 </div>
@@ -49,7 +47,8 @@ export default {
         return{
             email: 'rachel.green@centralperk.com',
             password: 'ross',
-            submitStatus: null
+            submitStatus: null,
+            btnSubmit: false
             
             
         }
@@ -69,20 +68,21 @@ export default {
     methods: {
         setEmail(value) {
             this.email = value
+            this.btnSubmit = true
             this.$v.email.$touch()
+            if(this.$v.email.$error || !this.password || !value){
+                    this.btnSubmit = false
+                }
         },
         setPassword(value) {
             this.password = value
+            this.btnSubmit = true
             this.$v.password.$touch()
+            if(this.$v.password.$error || !this.email || !value){
+                    this.btnSubmit = false
+                }
         },
-        submit() {
-            console.log('submit!')
-            this.$v.$touch()
-            if (this.$v.$invalid) {
-                this.submitStatus = 'ERROR'
-            }
-        },
-
+       
         login () {
             this.$store.dispatch('login', {
                 employee : {
@@ -109,6 +109,15 @@ export default {
 
     .envoyer{
         text-align:center
+    }
+
+    .inactive{
+    background-color: #e6e6e6;
+    cursor: auto
+    }
+
+    .inactive:hover{
+        background-color: #e6e6e6;
     }
 
 
