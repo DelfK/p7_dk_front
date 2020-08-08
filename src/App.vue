@@ -88,12 +88,14 @@ export default {
       display: inline-block;
       border-radius: 5px;
       font-weight: 500;
+      
  }
 
  .btn-primary{
     border: 1px solid #fff;
     color: #f7f7f7;
     background-color: #92BFBA;
+    margin: 0 15px 0 0;
  }
 
  .btn-primary:hover{
@@ -226,7 +228,7 @@ form {
     padding: 0 100px;
 }
 
-form input{
+form input, form textarea{
     border: 1px solid #ddd;
     border-radius: 0.4rem;
     height: 46px;
@@ -239,12 +241,16 @@ form input{
 }
 
 form input:hover{
-    border-color: #999
+    border-color: #eee
 }
 
-form input:focus{
+form input:focus, form textarea:focus{
     outline: none;
-    border: 1px solid #999;
+    border: 1px solid #FFD8D8;
+}
+
+.btn:focus{
+   border: 1px solid #FFD8D8;
 }
 
 /*HEADINGS*/

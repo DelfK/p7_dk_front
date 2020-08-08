@@ -41,7 +41,7 @@ export default{
     top: 0;
     left: 0;
     right:0;
-    height: 70px;
+    height: 65px;
     padding: 10px 15px;
     display:flex;
     justify-content: space-between;
@@ -54,7 +54,7 @@ export default{
 }
 
 .header img{
-    width: 50px;
+    width: 45px;
     display: block
 }
 

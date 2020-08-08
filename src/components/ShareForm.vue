@@ -118,6 +118,13 @@ form input{
     
 }
 
+form input:nth-child(3){
+    
+    padding: 0 10px 0 10px;
+    
+    
+}
+
 form input[placeholder]{
     color: #eee
 }
@@ -132,7 +139,7 @@ datalist option{
 }
 
 .validMsg{
-    color: #5d9f97;
+    color: #A8DBA8;
     text-align: center
 }
 

@@ -39,9 +39,8 @@
                     <button v-on:click.prevent="annuler" class="btn btn-secondary">Annuler</button> 
                     <button v-on:click.prevent="updateProfile" v-bind:class="{ inactive: !btnSubmit }" class="btn btn-primary" type="submit">Mettre à jour</button> 
                     <p v-if="submitStatus === 'ERROR'">Merci de renseigner vos informations</p>
-                    <div class="validateMsg" v-if ="validMsg">Votre profil a bien été mis à jour<span class="fermer" v-on:click="toggleValideMsg">x</span></div>
-                
-                    
+                    <p v-if="submitStatus === 'OK'">Merci! Vos informations ont bien été transmises</p>
+                    <div class="validateMsg" v-if ="validMsg">Votre profil a bien été mis à jour<span class="fermer" v-on:click="toggleValideMsg">x</span></div> 
                 </div>
             </form>
 
@@ -117,9 +116,6 @@
 
         methods: {
             
-                
-            
-
             onFileChange(e) {
 
            
@@ -140,6 +136,61 @@
                     this.errorMsg = null
                     this.btnSubmit = true
                     return true
+                }
+            },
+
+            toggleValideMsg(){
+                this.validMsg = !this.validMsg
+            },
+ 
+            setEmail(value) {
+                this.email = value
+                this.btnSubmit = true
+                this.$v.email.$touch()
+                if(this.$v.email.$error){
+                    this.btnSubmit = false
+                }
+            },
+
+            setName(value) {
+                this.name = value
+                this.btnSubmit = true
+                this.$v.name.$touch()
+                if(this.$v.name.$error){
+                    this.btnSubmit = false
+                }
+            },
+
+            setFirstname(value) {
+                this.firstname = value
+                this.btnSubmit = true
+                this.$v.firstname.$touch()
+                if(this.$v.firstname.$error){
+                    this.btnSubmit = false
+                }
+            },
+
+            setPosition(value) {
+                this.position = value
+                this.btnSubmit = true
+                this.$v.position.$touch()
+                if(this.$v.position.$error){
+                    this.btnSubmit = false
+                }
+            },
+
+            submit() {
+                console.log('submit!')
+                this.$v.$touch()
+                if (this.$v.$invalid) {
+                    this.submitStatus = 'ERROR'
+                    
+                    
+                } else {
+                    setTimeout(() => {
+                    this.submitStatus = 'OK'
+                    }, 500)
+                    
                 }
             },
 
@@ -194,42 +245,6 @@
                     }
                 }
                 
-            },
-
-            toggleValideMsg(){
-                this.validMsg = !this.validMsg
-            },
- 
-            setEmail(value) {
-                this.email = value
-                this.btnSubmit = true
-                this.$v.email.$touch()
-            },
-
-            setName(value) {
-                this.name = value
-                this.btnSubmit = true
-                this.$v.name.$touch()
-            },
-
-            setFirstname(value) {
-                this.firstname = value
-                this.btnSubmit = true
-                this.$v.firstname.$touch()
-            },
-
-            setPosition(value) {
-                this.position = value
-                this.btnSubmit = true
-                this.$v.position.$touch()
-            },
-
-            submit() {
-                console.log('submit!')
-                this.$v.$touch()
-                if (this.$v.$invalid) {
-                    this.submitStatus = 'ERROR'
-                }
             },
 
             annuler(){

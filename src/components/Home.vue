@@ -121,11 +121,11 @@ h3{
 }
 
 .auteur div:first-child{
-    flex: 0 0 93%;
+    flex: 0 0 92.6%;
 }
 
 .auteur div:nth-child(2){
-    flex: 0 0 7%;
+    flex: 0 0 6.4%;
 }
 
 .auteur span{
