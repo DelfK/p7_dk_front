@@ -47,7 +47,7 @@
                 
                 <div class="envoyer">
                     <button v-on:click.prevent="annuler" class="btn btn-secondary">Annuler</button> 
-                    <button v-on:click.prevent="sendArticle" v-bind:class="{ inactive: !btnSubmit }" class="btn btn-primary" type="submit" :disabled="btnSubmit === true">Envoyer</button> 
+                    <button v-on:click.prevent="sendArticle" v-bind:class="{ inactive: !btnSubmit }" class="btn btn-primary" type="submit">Envoyer</button> 
                     <div class="validateMsg" v-if ="validMsg">L'article a bien été créé<span class="fermer" v-on:click="toggleValideMsg">x</span></div>
                 
                     
@@ -167,6 +167,9 @@
                             this.previewImg = null
                             this.imageHided = true
                             this.btnSubmit = false
+                            this.$v.title.$reset()
+                            this.$v.content.$reset()
+                            
                             
                             
                             
@@ -193,7 +196,14 @@
                             this.content = null
                             this.previewImg = null
                             this.imageHided = true
+
+                            // reset btn to default (disabled)
                             this.btnSubmit = false
+
+                            // prevent display of error when submit OK
+                            this.$v.title.$reset()
+                            this.$v.content.$reset()
+                           
                             
                            
                             
