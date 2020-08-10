@@ -11,12 +11,18 @@
                     </div>
                     
                 </div>
+
+                <div class="commentaire">
+                    <div class="comment">
+                            <a href="#comments" v-smooth-scroll="{duration: 1200, offset: 0}"><img class="responsive-image" src="../assets/speech-bubble.svg" alt="scroll to comment"></a>
+                        
+                    </div>   
+                </div>
                     
                 <div class="partage">
                     <div class="share" v-on:click="toggleShowForm">
                         <img class="responsive-image" src="../assets/connection.svg" alt="lien partage">
-                    </div>
-                    
+                    </div>   
                 </div>
                 
             </div>
@@ -26,6 +32,7 @@
             
             <div class="articleImg"><img class="responsive-image" v-bind:src="articleImg" alt=""></div>
             <div class="articleContent"><p>{{articleContent}}</p></div>
+            <Comments id="comments"></Comments>
         </div>
         
 
@@ -35,6 +42,8 @@
 <script>
     import http from '../services'
     import ShareForm from './ShareForm'
+    import comments from './Comments'
+    
     export default {
         name: 'Article',
         data() {
@@ -54,7 +63,8 @@
             }
         },
         components:{
-            'ShareForm': ShareForm
+            'ShareForm': ShareForm,
+            'Comments': comments
         },
         methods:{
             toggleShowForm(){
@@ -105,19 +115,21 @@
 }
 
 .profile {
-    flex: 0 0 calc(94% -13px);
+    flex: 0 0 calc(90% - 13px);
     display: flex
 }
 
+.commentaire{
+    flex: 0 0 5%
+}
+
 .partage{
-    flex: 0 0 6%
+    flex: 0 0 5%
 }
 
 .auteur{
     margin: 0 0 0 13px;  
 }
-
-
 
 .auteur div:first-child{
     font-weight: 600
@@ -130,18 +142,27 @@
 .share{
     border-radius: 50%;
     background-color: #eee;
-    padding: 7px;
+    padding: 0.3rem
+}
+
+.comment{
+    border-radius: 50%;
+    background-color: #FFD8D8;
+    padding: 0.45rem
 }
 
 .share:hover{
     background-color: #e6e6e6
+    
 }
 
-.share img{
+.comment:hover{
+    background-color: #ffc7c7
+}
+
+.share img, .comment img{
     display: block
 }
-
-
 
 p{
     line-height:2;

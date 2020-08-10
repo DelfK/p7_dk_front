@@ -28,7 +28,7 @@ export default {
 .splash{
     width: 100%;
     height: 100vh;
-    background: url("../assets/splash.jpg");
+    background: url("../assets/splash-min.jpg");
     background-size:cover;
 }
 

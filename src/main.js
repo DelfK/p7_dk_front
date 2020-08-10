@@ -3,8 +3,9 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 import Vuelidate from 'vuelidate'
 import store from './store'
+import vueSmoothScroll from 'vue-smooth-scroll'
 
-
+Vue.use(vueSmoothScroll)
 
 // get the routes
 import Routes from './Routes'

@@ -52,7 +52,7 @@
     border: 1px solid #eee;
     padding: 2px 0;
     position: absolute;
-    top: 70px;
+    top: 65px;
     right: 15px;
     background-color: #92BFBA;
     font-size: 0.9rem;

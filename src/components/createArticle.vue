@@ -296,7 +296,7 @@
     top: 0;
     right: 0;
     padding: 10px;
-    width:60px;
+    width:52px;
     cursor: pointer
 }
 

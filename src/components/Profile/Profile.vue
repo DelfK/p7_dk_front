@@ -69,7 +69,8 @@
 
 <style scoped>
 h1 {
-    margin: 24px 0 12px 0
+    margin: 24px 0 12px 0;
+    text-align: left
 }
 
 p{
