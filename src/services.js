@@ -7,13 +7,12 @@ const http = axios.create({
   // Add a request interceptor
   http.interceptors.request.use(
   config => {
-    console.log('tentative rajout token')
      if(localStorage.getItem('user')) {
         const token = JSON.parse(localStorage.getItem('user')).token;
         config.headers['Authorization'] = 'Bearer ' + token;
         console.log('coucou token')
      }
-      
+     
       // config.headers['Content-Type'] = 'application/json';
       return config;
       

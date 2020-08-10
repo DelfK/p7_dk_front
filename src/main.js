@@ -40,6 +40,7 @@ router.beforeEach((to, from, next) => {
       next({
         name: 'splash'
       });
+      
     } else {
       next();
     }

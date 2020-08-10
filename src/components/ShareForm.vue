@@ -9,6 +9,7 @@
             </datalist>
             <input v-on:click.prevent="shareArticle" class="btn-primary" type="submit" value="Partager">
             <p class="validMsg" v-if="showMsg">{{msgValidation}} <span>&check;</span></p>
+            <p class="errorMsg" v-if="msgError">Cet utilisateur n'existe plus   <span>&#x2717;</span></p>
             
             
         </form>
@@ -27,7 +28,8 @@ import { setTimeout } from 'timers';
                 employees: null,
                 employeeName:null,
                 msgValidation: null,
-                showMsg: false
+                showMsg: false,
+                msgError: false
                 
                 
             }
@@ -37,7 +39,7 @@ import { setTimeout } from 'timers';
             shareArticle() {
             
                 this.employees.forEach(employee => {
-                    if (this.employeeName === employee.first_name + ' ' + employee.name) {
+                    if (this.employeeName === employee.first_name + ' ' + employee.name && employee.deleted === 0) {
 
                         const storyId = this.$route.params.id
                         const id = employee.id
@@ -57,6 +59,11 @@ import { setTimeout } from 'timers';
                             this.employeeName = null
 
                         })
+                    } else {
+                        this.msgError = true
+                        this.employeeName = null
+                         
+                        
                     }
                 });
             
@@ -73,7 +80,18 @@ import { setTimeout } from 'timers';
                         }
                     }, 4000
                 )
-            }
+            },
+
+            msgError:function(){
+                const ctx = this
+                setTimeout(
+                    function(){
+                        if(ctx.msgError){
+                            ctx.msgError = false
+                        }
+                    }, 4000
+                )
+            },
 
         },
 
@@ -147,6 +165,10 @@ datalist option{
     background: url('../assets/adduser.svg') no-repeat 10px 5px;
     background-size: 20px;
     color: #90a8b8
+}
+
+.errorMsg span{
+    padding: 0 3px
 }
 
 

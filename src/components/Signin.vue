@@ -176,6 +176,7 @@ export default {
                     this.btnSubmit = false
                     this.displayConfirmation = true
                     this.$router.push({ name: 'login' });
+                    this.$store.state.showValidSignIn = true
  
             })
             .catch( (error) => {

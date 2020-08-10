@@ -3,6 +3,8 @@
         <div class="small-container">
             <h1>Se connecter</h1>
             <form>
+            <div v-if="this.$store.state.showValidSignIn" class="welcomeMessage">Bienvenue sur Groupomania, vous pouvez maintenant vous connecter pour lire et partager des articles</div>
+            
                 
                 <div :class="{ 'form-group--error': $v.email.$error }">
                     <label for="email">Email</label>
@@ -16,7 +18,8 @@
                     <input type="password" id="password" v-model.trim="password" @input="setPassword($event.target.value)">
                 </div>
                 <div class="error" v-if="!$v.password.required">Ce champs est requis</div>
-                
+                <!--<div class="error" v-if="!$v.password.minLength">Le mot de pass doit contenir au moins {{$v.password.$params.minLength.min}} caractères.</div>-->
+                                    
                 <div class="envoyer">
                     <button v-bind:class="{ inactive: !btnSubmit }" v-on:click.prevent="login" class="btn btn-primary" type="submit" :disabled="btnSubmit === false">Envoyer</button>
                     <p class="errorMsg">{{$store.state.errMsg}}</p>
@@ -62,7 +65,8 @@ export default {
             
         },
         password:{
-            required
+            required,
+            //minLength: minLength(8)
         }
     },
     methods: {
@@ -93,6 +97,7 @@ export default {
             .then(() => {
               this.$router.push({ name: 'home' })
             })
+            
         },
         
     }
@@ -118,6 +123,16 @@ export default {
 
     .inactive:hover{
         background-color: #e6e6e6;
+    }
+
+    .welcomeMessage{
+        background-color: #A8DBA8;
+        color:#f6f6f6;
+        padding: 20px;
+        border-radius: 2px;
+        text-align: center;
+        font-size: 1.25rem;
+        margin: 0 0 30px 0 
     }
 
 

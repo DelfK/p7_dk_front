@@ -5,8 +5,8 @@
         <ul>
             <li v-on:click="goToProfile">Profil</li>
             <li v-on:click="$router.push('/nouvelarticle')">Nouvel article</li>
-            <li v-if="moderator"> Commentaires</li>
-            <div class="btn" v-on:click="logout">Déconnexion</div>
+            <li class="moderate" v-if="moderator">Modération</li>
+            <div class="btn" v-on:click="logout">Se déconnecter</div>
         </ul>
 
     </div>
@@ -27,6 +27,7 @@
             this.$store.dispatch('logout')
             .then( () =>{
                 this.$router.push({ name : 'splash'})
+                this.$store.state.showValidSignIn = false
             })
             },
 
@@ -35,12 +36,30 @@
                 return http
                 .get(`/api/employee/${id}`)
                 .then( response => {
+                        if(response.data.role === 'moderator'){
+                            this.moderator = true
+                        }
                         return response.data.first_name  + response.data.name
+                        
                 })
                 .then( name => {
                     this.$router.push(`/${name}`)
                 })
-            }
+            },
+        },
+
+        created(){
+            const id = JSON.parse(localStorage.getItem('user')).employeeId
+            return http
+            .get(`/api/employee/${id}`)
+            .then( response => {
+                    if(response.data.role === 'moderator'){
+                        return this.moderator = true
+                    }
+                    
+                    
+            })
+
         }
         
     }
@@ -70,7 +89,7 @@
 .dropdown .btn{
     cursor: pointer;
     font-weight: 400;
-    color: #5d5d5d
+    color: #222
 }
 
 ul{
@@ -80,19 +99,23 @@ ul{
 }
 
 ul li{
-    padding: 8px 10px;
+    padding: 8px 12px;
     border-bottom: 1px solid #eee;
     color: #FFF;
 }
 
 ul li:hover, .dropdown .btn:hover{
-    font-weight: 600;
+    opacity: 0.8;
     cursor: pointer
     
 }
 
 ul li:last-child{
     border: none;
+}
+
+.moderate{
+    color:#222
 }
 
 </style>

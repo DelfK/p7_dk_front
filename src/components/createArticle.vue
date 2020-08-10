@@ -129,7 +129,7 @@
                     
                     }
                     this.errorMsg = null
-                    if(this.content && this.title){
+                    if(!this.$v.title.$error && !this.$v.content.$error ){
                         this.btnSubmit = true
                     }
                     
@@ -221,19 +221,23 @@
  
             setTitle(value) {
                 this.title = value
-                this.btnSubmit = true
+                
                 this.$v.title.$touch()
-                if(this.$v.title.$error || !this.content || !value){
+                if(this.$v.title.$error || this.$v.content.$error || !value){
                     this.btnSubmit = false
+                } else {
+                    this.btnSubmit = true
                 }
+                
             },
 
             setContent(value) {
                 this.content = value
-                this.btnSubmit = true
                 this.$v.content.$touch()
-                if(this.$v.content.$error || !this.title || !value ){
+                if(this.$v.content.$error || this.$v.title.$error || !value ){
                     this.btnSubmit = false
+                } else {
+                    this.btnSubmit = true
                 }
             },
 
@@ -245,6 +249,7 @@
             toggleImgUpload(){
                 this.imageHided = true
                 this.previewImg = null
+                this.btnSubmit = false
             }
         }
 }

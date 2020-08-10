@@ -43,6 +43,15 @@
                     <div class="validateMsg" v-if ="validMsg">Votre profil a bien été mis à jour<span class="fermer" v-on:click="toggleValideMsg">x</span></div> 
                 </div>
             </form>
+            <h1>Mon compte</h1>
+            <div class="suppression">
+                <div>
+                    <p>Je ne souhaite plus venir sur Groupomania</p>  
+                </div>
+                <button v-on:click.prevent="supprimerCompte" class="btn btn-secondary">Désactiver mon compte</button>
+
+            </div>
+            <p class="remarque">Vous ne pourrez plus voir, créer et partager d'articles avec vos collaborateurs mais vos articles seront toujours visibles.</p>
 
         </div>
     </div>
@@ -257,6 +266,18 @@
                 .then( name => {
                     this.$router.push(`/${name}`)
                 })
+            },
+
+            supprimerCompte(){
+                const employeeId = JSON.parse(localStorage.getItem('user')).employeeId
+                return http
+                .delete(`/api/employee/${employeeId}`)
+                .then( () => {
+                    console.log('compte à désactiver')
+                    this.$store.dispatch('logout')
+                    this.$router.push({ name : 'splash'})
+                    console.log('compte désactivé')
+                })
             }
         }
 }
@@ -358,6 +379,36 @@ form{
 .inactive:hover{
     background-color: #e6e6e6;
 }
+
+.suppression{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 25px 0;
+}
+
+.suppression div p {
+    font-size: 1.2rem;
+    font-weight: 500
+}
+
+.suppression button{
+    background-color:#f57f6c;
+    border-color: #f79b8c;
+    color: #FFF
+}
+
+.suppression button:hover{
+    background-color:#f79b8c;
+    border-color: #f8a99c
+}
+
+
+h2{
+    margin: 0
+}
+
+
 
 
 </style>

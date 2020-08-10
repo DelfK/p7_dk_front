@@ -11,7 +11,8 @@ export default new Vuex.Store({
         user: null,
         errMsg: null,
         showMenu: false,
-        count: 0
+        count: 0,
+        showValidSignIn: false
     },
     mutations:{
         SET_USER_DATA (state, userData) {
@@ -47,13 +48,14 @@ export default new Vuex.Store({
             .catch((error) => {
                 console.log(error);
                 this.state.errMsg = error.response.data.error
+                this.$router.push({ name: 'login' })
             })
             
         },
 
         logout ({ commit }) {
             commit('CLEAR_USER_DATA')
-          }
+        }
 
 
     },

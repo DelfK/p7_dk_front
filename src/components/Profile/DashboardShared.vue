@@ -75,7 +75,7 @@ ul{
 .detailsArticle{
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     margin: 20px 0;
     
 }

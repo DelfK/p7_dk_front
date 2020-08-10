@@ -17,7 +17,7 @@
                 
                 <div class="envoyer">
                     <button v-on:click.prevent="annuler" class="btn btn-secondary">Annuler</button> 
-                    <button v-on:click.prevent="sendComment" v-bind:class="{ inactive: !btnSubmit }" class="btn btn-primary" type="submit">Envoyer</button> 
+                    <button v-on:click.prevent="sendComment" v-bind:class="{ inactive: !btnSubmit }" class="btn btn-primary" type="submit" :disabled="btnSubmit === false">Envoyer</button> 
                     <div class="validateMsg" v-if ="validMsg">Le commentaire a bien été créé<span class="fermer" v-on:click="toggleValideMsg">x</span></div>   
                 </div>
 
