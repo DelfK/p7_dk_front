@@ -5,7 +5,7 @@
         <ul>
             <li v-on:click="goToProfile">Profil</li>
             <li v-on:click="$router.push('/nouvelarticle')">Nouvel article</li>
-            <li class="moderate" v-if="moderator">Modération</li>
+            <li v-on:click="$router.push('/commentaires')" class="moderate" v-if="moderate">Commentaires</li>
             <div class="btn" v-on:click="logout">Se déconnecter</div>
         </ul>
 
@@ -16,9 +16,10 @@
     import http from '../../services'
     export default {
         name: 'DropDownMenu',
-        data() {
-            return {
-                moderator: false,
+
+        computed: {
+            moderate() {
+            return this.$store.state.moderator
             }
         },
 

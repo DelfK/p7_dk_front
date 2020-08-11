@@ -13,6 +13,7 @@ export default new Vuex.Store({
         showMenu: false,
         count: 0,
         showValidSignIn: false,
+        moderator: null
         
     },
     mutations:{
@@ -44,7 +45,24 @@ export default new Vuex.Store({
                 console.log('user data is', data)
                 commit('SET_USER_DATA', data)
                 this.state.errMsg = null
+                return data.employeeId
                     
+            })
+            .then( (id) => {
+                return http
+                .get(`api/employee/${id}`)
+                .then( (response) => {
+                    const role = response.data.role
+                    
+                    if( role === "moderator"){
+                        this.state.moderator = true
+                    } else {
+                        this.state.moderator = false
+                    }
+                    
+                    
+                })
+
             })
             .catch((error) => {
                 console.log(error);

@@ -2,6 +2,7 @@
     <div class="container">
         <div class="small-container">
         <h2>Articles de la communauté</h2>
+        
         <ul>
             <li v-bind:key="index" v-for="(article, index) in allArticles">
                 <div class="articleResult">
