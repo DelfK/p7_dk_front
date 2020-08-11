@@ -35,7 +35,8 @@ const router = new VueRouter({
 // Navigation guards / redirect to splash screen 
 router.beforeEach((to, from, next) => {
   
-  if(to.matched.some( record => record.meta.requiresAuth)){
+  if(to.matched.some(record => record.meta.requiresAuth)){
+    console.log('user:'+ store.state.user.employeeId)
     if(!store.state.user){
       next({
         name: 'splash'

@@ -12,7 +12,8 @@ export default new Vuex.Store({
         errMsg: null,
         showMenu: false,
         count: 0,
-        showValidSignIn: false
+        showValidSignIn: false,
+        
     },
     mutations:{
         SET_USER_DATA (state, userData) {

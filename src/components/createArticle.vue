@@ -102,7 +102,15 @@
 
         created(){
             const id = JSON.parse(localStorage.getItem('user')).employeeId
-            this.userId = id   
+            this.userId = id
+            http.get(`/api/employee/${id}`)
+            .catch((error) => {
+                console.log('error', error)
+                
+            })
+            
+        
+          
         },
 
 
