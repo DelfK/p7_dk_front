@@ -127,7 +127,11 @@
                 
                 for(const comment of response.data){
                             if(!this.comments.includes(comment.id)){
-                                this.comments.push(comment) 
+                                
+                                if(comment.approuve == 1){
+                                    this.comments.push(comment) 
+                                }
+                                
                             }       
                 }   
             })

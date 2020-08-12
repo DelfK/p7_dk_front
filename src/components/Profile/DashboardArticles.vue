@@ -1,6 +1,7 @@
 <template>
 
         <div class="toggleContent">
+        
             <ul>
                 <div class="noArticles" v-if="noArticles">
                     <p>Vous n'avez pas d'articles pour le moment</p>
@@ -40,6 +41,7 @@
                 articleDeleted: false,
                 noArticles: true,
                 
+                
             }
         },
 
@@ -61,6 +63,7 @@
 
                     
             })
+            
             
         },
 

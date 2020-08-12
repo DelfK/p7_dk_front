@@ -35,15 +35,32 @@ import { setTimeout } from 'timers';
             }
         },
 
+        created(){ 
+            console.log('créé')
+            return http
+            .get('/api/employee')
+            .then((response) => {
+                if(!this.employees){
+                    this.employees = response.data.employees
+                        
+                }
+            console.log(this.employees)
+            
+                
+                
+            })
+        },
+
         methods: {
             shareArticle() {
-            
-                this.employees.forEach(employee => {
-                    if (this.employeeName === employee.first_name + ' ' + employee.name && employee.deleted === 0) {
+                const storyId = this.$route.params.id
+                for(const share of this.employees){
+                       
+                    if(this.employeeName == `${share.first_name} ${share.name}`){
+                        
+                        const id = share.id
 
-                        const storyId = this.$route.params.id
-                        const id = employee.id
-
+                        console.log('employee selected : ' + id + '_' + this.employeeName)
                         return http
                         .post(`/api/employee/${id}/stories/${storyId}/shares`, {
                 
@@ -57,16 +74,11 @@ import { setTimeout } from 'timers';
                             this.showMsg = true
                             this.msgValidation = "L'article a bien été partagé"
                             this.employeeName = null
-
-                        })
-                    } else {
-                        this.msgError = true
-                        this.employeeName = null
-                         
-                        
+                        }) 
                     }
-                });
-            
+                }
+                    
+                this.msgError = true
             }
         },
 
@@ -91,30 +103,14 @@ import { setTimeout } from 'timers';
                         }
                     }, 4000
                 )
-            },
+            }
 
         },
-
-    
-        
-        created(){ 
-            console.log('créé')
-            return http
-            .get('/api/employee')
-            .then((response) => {
-                if(!this.employees){
-                    this.employees = response.data.employees
-                        
-                }
-                
-                console.log(this.employees)
-                
-            })
-        },
-        
-        
+                    
     }
+             
 </script>
+
 
 <style scoped>
 
@@ -171,9 +167,14 @@ datalist option{
     padding: 0 3px
 }
 
-
-
-
-
-
 </style>
+
+
+
+
+
+    
+        
+        
+        
+        
