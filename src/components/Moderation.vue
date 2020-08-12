@@ -18,7 +18,7 @@
                         <div class="date">{{comment.dateCreated | moment("dddd Do MMMM YYYY")}}</div>
                         <div class="moderateBtn">
                             <button v-on:click="deleteComment(comment.id, index)" class="btn btn-edit">Supprimer</button>
-                            <button v-on:click="moderateComment(comment.id, comment.approuve)" v-bind:class="{ redBtn: approuve}" class="btn btn-edit approuver">{{intBtn}}</button>
+                            <button v-bind:class="{redBtn : comment.hide}" v-on:click="moderateComment(comment.id, comment.approuve, comment)" class="btn btn-edit approuver">{{comment.btnTitle}}</button>
                         </div>
 
                 </li>
@@ -34,9 +34,9 @@
         data() {
             return {
                comments: [],
-               intBtn: "Masquer",
-               approuve: true,
-               noComments: true
+               noComments: true,
+               btnTitleHide: "Bloquer",
+               btnTitleApprouve: "Approuver"
             }
         },
         created(){
@@ -44,10 +44,16 @@
             .get(`/api/employee/comments`)
             .then(response => {
                 
-                for(const comment of response.data){
-                            
-                    this.comments.push(comment)
+                for(const comment of response.data){       
                     this.noComments = false 
+                    if(comment.approuve == 1){
+                        comment.btnTitle = this.btnTitleHide
+                        comment.hide = true 
+                    } else {
+                        comment.btnTitle = this.btnTitleApprouve
+                        comment.hide = false
+                    }
+                    this.comments.push(comment)
                      
                 }
                 
@@ -66,21 +72,27 @@
                     
                 )
             },
-            moderateComment(commentId, approuve){
-                console.log('approuve:' + approuve)
+            moderateComment(commentId, approuve, comment){
+
                 if(approuve == 1) {
                     return http
                     .post(`/api/employee/comments/${commentId}/remove`)
                     .then( () => {
-                        this.inBtn = "Approuver"
-                        this.approuve = false
+                        comment.btnTitle = this.btnTitleApprouve
+                        comment.hide = false
+                        comment.approuve = 0
+                        console.log('approuve: ' + comment.approuve)
+                         
+                        
                     })
                 } else {
                     return http
                     .post(`/api/employee/comments/${commentId}/approuve`)
                     .then( () => {
-                        this.inBtn = "Masquer"
-                        this.approuve = true
+                        comment.btnTitle = this.btnTitleHide
+                        comment.hide = true
+                        comment.approuve = 1
+                        
                     })
                 }
                 
