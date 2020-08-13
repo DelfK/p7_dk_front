@@ -32,6 +32,7 @@
             
             <div class="articleImg"><img class="responsive-image" v-bind:src="articleImg" alt=""></div>
             <div class="articleContent"><p>{{articleContent}}</p></div>
+            
             <Comments id="comments"></Comments>
         </div>
         
@@ -56,7 +57,8 @@
                 articleContent: null,
                 id: this.$route.params.id,
                 employeeId: this.$route.params.employee,
-                visibleShareForm: false
+                visibleShareForm: false,
+               
                 
                 
 

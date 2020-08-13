@@ -12,7 +12,6 @@ import Routes from './Routes'
 
 Vue.config.productionTip = false
 
-
 Vue.use(Vuelidate)
 Vue.use(VueRouter)
 

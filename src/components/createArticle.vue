@@ -123,7 +123,7 @@
                 setTimeout(
                     function(){
                         if(ctx.errors){
-                            ctx.errors = false
+                            ctx.errors = []
                         }
                     }, 3500
                 )

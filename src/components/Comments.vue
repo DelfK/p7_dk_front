@@ -12,8 +12,11 @@
                 <div class="error" v-if="!$v.content.required">Ce champs est requis</div>
                 <div class="error" v-if="!$v.content.minLength">Le contenu doit contenir au moins {{$v.content.$params.minLength.min}} lettres.</div>
                 <div class="error" v-if="!$v.content.maxlength">Le contenu ne doit pas contenir plus de {{$v.content.$params.maxLength.min}} lettres.</div>
-            
-                
+                <p class="errorMsg">
+                    <ul>
+                        <li v-bind:key="index" v-for="(error, index) in errors">{{error}}</li>
+                    </ul>
+                </p>
                 
                 <div class="envoyer">
                     <button v-on:click.prevent="annuler" class="btn btn-secondary">Annuler</button> 
@@ -58,6 +61,8 @@
                 content: null,
                 validMsg: false,
                 btnSubmit: false,
+                errors: []
+                
             }
         },
 
@@ -73,6 +78,37 @@
 
         },
 
+        created(){
+            return http
+            .get(`/api/employee/stories/${this.storyId}/comments`)
+            .then(response => {
+                
+                for(const comment of response.data){
+                            if(!this.comments.includes(comment.id)){
+                                
+                                if(comment.approuve == 1){
+                                    this.comments.push(comment) 
+                                }
+                                
+                            }       
+                }   
+            })
+        },
+
+        watch: {
+            errors: function(){
+                const ctx = this
+                setTimeout(
+                    function(){
+                        if(ctx.errors){
+                            ctx.errors = []
+                        }
+                    }, 3500
+                )
+            },
+        },
+
+
         methods:{
             setContent(value) {
                 this.content = value
@@ -82,15 +118,16 @@
                     this.btnSubmit = false
                 }
             },
+
             annuler(){
 
                 this.content = null;
                 this.$v.content.$reset()
+                this.errors = []
             },
 
             sendComment(){
                 const id = JSON.parse(localStorage.getItem('user')).employeeId
-                
                 return http
                 .post(`/api/employee/${id}/stories/${this.storyId}/comments`,
                     {
@@ -110,7 +147,17 @@
                     this.comments.unshift(response.data.comment)
                      
                 })
+                .catch( (error) => {
+                    const errors = error.response.data.errors
+                    for(const error in errors){
+                        this.errors.push(errors[error].msg)
+                        
+                    }
+                    this.btnSubmit = false  
+                })
             },
+            
+                 
 
             toggleValideMsg(){
                 this.validMsg = !this.validMsg
@@ -120,22 +167,8 @@
 
         
 
-        created(){
-            return http
-            .get(`/api/employee/stories/${this.storyId}/comments`)
-            .then(response => {
-                
-                for(const comment of response.data){
-                            if(!this.comments.includes(comment.id)){
-                                
-                                if(comment.approuve == 1){
-                                    this.comments.push(comment) 
-                                }
-                                
-                            }       
-                }   
-            })
-        },
+        
+
 
         
     }
@@ -168,15 +201,21 @@
 
 ul{
     padding: 0;
+    list-style-type: none;
     
 }
 
-ul img{
+.errorMsg ul{
+    text-align: center
+    
+}
+
+.commentslist ul img{
  margin: 0 10px 0 0 
 }
 
-li {
-    list-style-type: none;
+.commentslist li {
+    
     background: #f6f6f6;
     border-radius: 4px;
     padding: 20px;
