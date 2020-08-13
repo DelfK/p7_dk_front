@@ -23,7 +23,7 @@
                 
                 <div class="editSection" :class="{'form-group--error': $v.title.$error }">
                     <label for="title">Titre</label>
-                    <input ref="title" type="text" id="title" v-model.trim="title" @input="setTitle($event.target.value)">
+                    <input ref="title" type="text" id="title" @input="setTitle($event.target.value)" v-model.trim="title">
                 </div>
                 <template v-if="$v.title.$error">
                     <p class="error" v-if="!$v.title.required">Ce champs est requis</p>
@@ -35,7 +35,7 @@
 
                 <div class="editSection" :class="{ 'form-group--error': $v.content.$error }">
                     <label for="content">Contenu</label>
-                    <textarea ref="content" id="content" v-model.trim="content" @input="setContent($event.target.value)" rows="20">
+                    <textarea ref="content" id="content"  @input="setContent($event.target.value)" rows="20" v-model.trim="content">
                     </textarea>     
                 </div>
                 <template v-if="$v.content.$error">
@@ -43,15 +43,18 @@
                     <div class="error" v-if="!$v.content.minLength">Le contenu doit contenir au moins {{$v.content.$params.minLength.min}} lettres.</div>
                     <div class="error" v-if="!$v.content.maxlength">Le contenu ne doit pas contenir plus de {{$v.content.$params.minLength.min}} lettres.</div>
                 </template>
-                
-                
+                <p class="errorMsg">
+                        <ul>
+                            <li v-bind:key="index" v-for="(error, index) in errors">{{error}}</li>
+                        </ul>
+                </p>
                 <div class="envoyer">
                     <button v-on:click.prevent="annuler" class="btn btn-secondary">Annuler</button> 
                     <button v-on:click.prevent="sendArticle" v-bind:class="{ inactive: !btnSubmit }" class="btn btn-primary" type="submit">Envoyer</button> 
                     <div class="validateMsg" v-if ="validMsg">L'article a bien été créé<span class="fermer" v-on:click="toggleValideMsg">x</span></div>
-                
-                    
                 </div>
+                
+   
             </form>
 
         </div>
@@ -78,7 +81,8 @@
                 userId: null,
                 imageHided:true,
                 previewImg: null,
-                isReset: false
+                isReset: false,
+                errors:[]
                 
             }
         },
@@ -111,6 +115,19 @@
             
         
           
+        },
+
+        watch: {
+            errors: function(){
+                const ctx = this
+                setTimeout(
+                    function(){
+                        if(ctx.errors){
+                            ctx.errors = false
+                        }
+                    }, 3500
+                )
+            },
         },
 
 
@@ -177,11 +194,19 @@
                             this.btnSubmit = false
                             this.$v.title.$reset()
                             this.$v.content.$reset()
-                            
-                            
-                            
-                            
                         })
+                        .catch( (error) => {
+                            const errors = error.response.data.errors
+                            for(const error in errors){
+                                this.errors.push(errors[error].msg)
+                                
+                            }
+                            console.log(this.errors)
+                        })
+                            
+                            
+                            
+                            
                     }else{
                         formData.append('title',this.title);
                         formData.append('content',this.content);
@@ -211,12 +236,20 @@
                             // prevent display of error when submit OK
                             this.$v.title.$reset()
                             this.$v.content.$reset()
-                           
-                            
-                           
-                            
+                        })
+                        .catch( (error) => {
+                            const errors = error.response.data
+                            for(const error in errors){
+                                this.errors.push(errors[error].msg)
+                                
+                            }
                             
                         })
+                           
+                            
+                           
+                            
+                            
 
                     }
                 }
@@ -407,6 +440,12 @@ form{
 
 .inactive:hover{
     background-color: #e6e6e6;
+}
+
+ul{
+    list-style-type: none;
+    padding: 0;
+    text-align: center
 }
 
 

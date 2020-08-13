@@ -47,7 +47,12 @@
                 <div class="envoyer">
                     <button v-bind:class="{ inactive: !btnSubmit }" v-on:click="sendData" class="btn btn-primary" type="submit" :disabled="btnSubmit === false">Envoyer</button>
                     <p class="validateMsg" v-if="submitStatus === 'OK' && emailUnique && displayConfirmation">Merci! Vos informations ont bien été transmises</p>
-                    <p class="errorMsg">{{errorMsg}}</p>
+                    <p class="errorMsg">{{errorUserExist}}</p>
+                    <p class="errorMsg">
+                        <ul>
+                            <li v-bind:key="index" v-for="(error, index) in errors">{{error}}</li>
+                        </ul>
+                    </p>
   
                     
                 </div>
@@ -78,9 +83,10 @@ export default {
             password:'',
             submitStatus: null,
             emailUnique: null,
-            errorMsg: null,
+            errorUserExist: null,
             btnSubmit: false,
-            displayConfirmation: false
+            displayConfirmation: false,
+            errors: [ ]
         }
     },
 
@@ -106,6 +112,18 @@ export default {
             maxLength: maxLength(20),
             alphaNum
         }
+    },
+    watch: {
+            errors: function(){
+                const ctx = this
+                setTimeout(
+                    function(){
+                        if(ctx.errors){
+                            ctx.errors = false
+                        }
+                    }, 3500
+                )
+            },
     },
     methods: {
         setFirstname(value) {
@@ -180,7 +198,25 @@ export default {
  
             })
             .catch( (error) => {
-                this.errorMsg = error.response.data.error
+                this.errorUserExist = error.response.data.error
+            
+                const errors = error.response.data
+                for(const error in errors){
+                    this.errors.push(errors[error].msg)
+                       
+                }
+                this.name = null
+                this.firstname = null
+                this.email = null
+                this.password = null
+                this.btnSubmit = false
+
+                this.$v.name.$reset()
+                this.$v.firstname.$reset()
+                this.$v.email.$reset()
+                this.$v.password.$reset()
+                
+                this.errorNotValid = error.response.data
                 this.emailUnique = false
                 
                 
@@ -192,6 +228,11 @@ export default {
 </script>
 
 <style scoped>
+
+    ul{
+        padding: 0;
+        list-style-type: none;
+    }
 
     .container{
         margin: 80px 0 0 0;
