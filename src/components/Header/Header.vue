@@ -1,16 +1,22 @@
 <template>
- <div class="header">
-     <router-link to="/home"><img src="../../assets/icon.png" alt="groupomania"></router-link>
-     <div v-if="$route.meta.showWelcomeProfile" class="createArticle">
-        <div v-on:click="$router.push('/nouvelarticle')" class="btn btn-edit">Rédiger</div>
-     </div>
-     <div class="header_navigation">
-         <welcome v-if="$route.meta.showWelcome"></welcome>
-         <dropdown v-if="showMenu"></dropdown>
-         <welcomeprofile v-if="$route.meta.showWelcomeProfile"></welcomeprofile>
-         
+
+    <div class="header">
+
+        <router-link to="/home"><img src="../../assets/icon.png" alt="groupomania"></router-link>
+        <div v-if="$route.meta.showWelcomeProfile" class="createArticle">
+            <div v-on:click="$router.push('/nouvelarticle')" class="btn btn-edit">Rédiger</div>
+        </div>
+
+        <div class="header_navigation">
+            <!-- Public menu -->
+            <welcome v-if="$route.meta.showWelcome"></welcome>
+            <!-- Connected menu -->
+            <dropdown v-if="showMenu"></dropdown>
+            <welcomeprofile v-if="$route.meta.showWelcomeProfile"></welcomeprofile>
+            
+        </div>
+
     </div>
- </div>
      
 </template>
 <script>
@@ -19,7 +25,9 @@ import WelcomeProfile from './WelcomeProfile'
 import DropDownMenu from './DropDownMenu'
 
 export default{
+
     name: "Header",
+
     components:{
         'welcome':Welcome,
         'welcomeprofile': WelcomeProfile,
@@ -30,9 +38,7 @@ export default{
       showMenu() {
         return this.$store.state.showMenu
       }
-    }
-    
-    
+    }  
 }
 </script>
 <style>

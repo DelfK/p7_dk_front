@@ -1,24 +1,25 @@
 <template>
+
   <div id="app">
     <header-top v-if="!$route.meta.hideHeader"></header-top>
     <router-view></router-view>
   </div>
+  
 </template>
 
 <script>
-import Header from './components/Header/Header'
+
+  import Header from './components/Header/Header'
 
 
-export default {
-  name: 'App',
-  components: {
-    'header-top': Header,
-    
+  export default {
+    name: 'App',
+    components: {
+      'header-top': Header,
+      
+    }
   }
-  
 
-  
-}
 </script>
 
 <style>
@@ -76,11 +77,6 @@ export default {
     color: #aaa;
     font-size: 0.90rem;
   }
-
-
-
-  
-
 
 /*BUTTONS*/
  .btn{

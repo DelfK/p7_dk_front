@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-//import axios from 'axios'
 import http from './services'
 import createPersistedState from "vuex-persistedstate"
 
@@ -11,7 +10,6 @@ export default new Vuex.Store({
         user: null,
         errMsg: null,
         showMenu: false,
-        count: 0,
         showValidSignIn: false,
         moderator: null
         
@@ -20,8 +18,9 @@ export default new Vuex.Store({
         SET_USER_DATA (state, userData) {
             state.user = userData
             localStorage.setItem('user', JSON.stringify(userData))
-            //console.log('token', userData.token)
+            
         },
+
         SHOW_HIDE_MENU (state){
             if(state.showMenu === false){
                 state.showMenu = true
@@ -42,7 +41,6 @@ export default new Vuex.Store({
             return http
             .post('/api/employee/login', credentials)
             .then( ( {data} ) => {
-                console.log('user data is', data)
                 commit('SET_USER_DATA', data)
                 this.state.errMsg = null
                 return data.employeeId
@@ -53,7 +51,6 @@ export default new Vuex.Store({
                 .get(`api/employee/${id}`)
                 .then( (response) => {
                     const role = response.data.role
-                    
                     if( role === "moderator"){
                         this.state.moderator = true
                     } else {
@@ -65,7 +62,6 @@ export default new Vuex.Store({
 
             })
             .catch((error) => {
-                console.log(error);
                 this.state.errMsg = error.response.data.error
                 this.$router.push({ name: 'login' })
             })
@@ -78,5 +74,6 @@ export default new Vuex.Store({
 
 
     },
+    // when page refreshed, prevent the user from being disconnected
     plugins: [createPersistedState()]
 });

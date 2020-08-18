@@ -9,12 +9,12 @@
 
 <script>
     export default {
-        name:'notFound'
-        
+        name:'notFound' 
     }
 </script>
 
 <style scoped>
+
 .notfound{
     display: flex;
     justify-content: center;
@@ -25,4 +25,5 @@
 .notfound img{
     width: 50%
 }
+
 </style>

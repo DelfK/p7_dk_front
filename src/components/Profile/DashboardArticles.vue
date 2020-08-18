@@ -12,17 +12,15 @@
                 
                     <div class="detailsArticle">
                         <div class="articleImg">
-                            <img class="responsive-image" v-bind:src="article.imageUrl" alt="">
-                            
+                            <img class="responsive-image" v-bind:src="article.imageUrl" alt="">   
                         </div>
                         <div>
-                            
-                            <p  class="title">{{article.title}}</p>
-                            
+                            <router-link :to="article.url"><p  class="title">{{article.title}}</p></router-link>
                         </div>
                         <div>
                             <div class="lire btn btn-edit red" v-on:click="deleteArticle(article.id, index)">Supprimer</div>
                         </div>   
+                            
                     </div>
                     
                 </li>
@@ -30,38 +28,45 @@
                 
         </div>
 </template>
+                            
 
 <script>
+
     import http from '../../services'
+
     export default {
         name:'BoardArticles',
+
         data() {
             return {
                 articles: [],
                 articleDeleted: false,
                 noArticles: true,
-                
-                
             }
         },
-
+                
         created(){
+            //display the articles created by the user
             const id = JSON.parse(localStorage.getItem('user')).employeeId
             return http
             .get(`/api/employee/${id}/stories`)
             .then( response => {
-                console.log(response.data)
                 for(const article of response.data){
                     if(!article.imageUrl){
+                        // display a default image when no image provide by the user
                         article.imageUrl = 'http://localhost:4000/images/story.jpg'
                     }
+
+                    // get the path to the article
                     article.url = `/article/${article.employee_id}/${article.id}`
+
+                    // put the article in the articles array
                     this.articles.push(article)
+
+                    // hide the message displayed when there are no articles
                     this.noArticles = false
                     
-                }
-
-                    
+                }      
             })
             
             
@@ -69,20 +74,22 @@
 
         methods: {
             deleteArticle(artId, index){
-            const id = JSON.parse(localStorage.getItem('user')).employeeId
-            return http
-            .delete(`/api/employee/${id}/stories/${artId}`)
-            .then( () => {
-                
-                this.articleDeleted = true
-                this.articles.splice(index, 1)
-            })
+                const id = JSON.parse(localStorage.getItem('user')).employeeId
+                return http
+                .delete(`/api/employee/${id}/stories/${artId}`)
+                .then( () => {
+                    // display the confirmation message
+                    this.articleDeleted = true
+                    // remove the deleted article from the array so it disappears from the page
+                    this.articles.splice(index, 1)
+                })
             },
+
             toggleValidMessage(){
+                // hide the confirmation message
                 this.articleDeleted = false
             }, 
-
-           
+ 
         }
 
     }

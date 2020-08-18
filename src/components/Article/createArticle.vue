@@ -17,7 +17,7 @@
                     
                 <div class="previewImg" v-if="!imageHided">
                     <img class="responsive-image" v-bind:src="previewImg" alt="">
-                    <img src="../assets/cancel.svg" alt="" class="cancel" v-on:click="toggleImgUpload">
+                    <img src="../../assets/cancel.svg" alt="" class="cancel" v-on:click="toggleImgUpload">
                 </div>
                 
                 
@@ -28,7 +28,7 @@
                 <template v-if="$v.title.$error">
                     <p class="error" v-if="!$v.title.required">Ce champs est requis</p>
                     <p  class="error" v-if="!$v.title.minLength">Le titre doit contenir au moins {{$v.title.$params.minLength.min}} lettres.</p>
-                    <p class="error" v-if="!$v.title.maxlength">Le titre ne doit pas contenir plus de {{$v.title.$params.minLength.min}} lettres.</p>
+                    <p class="error" v-if="!$v.title.maxlength">Le titre ne doit pas contenir plus de {{$v.title.$params.maxLength.max}} lettres.</p>
                 </template>
                 
                 
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-    import http from '../services'
+    import http from '../../services'
     import { required, minLength, maxLength} from 'vuelidate/lib/validators'
     
 
@@ -351,7 +351,7 @@
 #myFile:before{
     content: "";
     background-color:rgba(0, 0, 0, 0.40);
-    background-image:  url('../assets/camera.svg');
+    background-image:  url('../../assets/camera.svg');
     background-size: 30px;
     background-position: center center;
     background-repeat: no-repeat;

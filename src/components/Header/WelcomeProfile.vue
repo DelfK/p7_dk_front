@@ -10,21 +10,20 @@
 </template>
 
 <script>
+
   import http from '../../services'
 
     export default {
         name: 'WelcomeProfile',
+
         data() {
             return {
                 profileImg: null,   
                 profileFirstname: null,
-                profileName: null,
-                
-                
+                profileName: null,   
             }
     
         },
-
 
         methods:{
             toggleMenu: function() {
@@ -32,11 +31,12 @@
             },
             
             close(e) {
+                // if click outsise the menu and if menu displayed
                 if (!this.$el.contains(e.target) && this.showMenu ) {
-                    this.$store.commit('SHOW_HIDE_MENU')
-                    console.log(this.showMenu)
+                    // hide menu
+                    this.$store.commit('SHOW_HIDE_MENU')   
+                }
             }
-    }
 
         },
 
@@ -47,35 +47,30 @@
         },
 
         created () {
+            // hide the dropdown when user clicks outside
             window.addEventListener("click", this.close );
-            console.log('created')
+            
             const id = JSON.parse(localStorage.getItem('user')).employeeId
-            console.log('created')
-            //axios.defaults.headers.common['Authorization'] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZUlkIjo0LCJpYXQiOjE1OTU3OTgxMDMsImV4cCI6MTU5NTg4NDUwM30.01MtA1_RH16pq5dkewJ7G5QEH2ZjHhv1cKTE1-s3tHg'
             http.get(`/api/employee/${id}`)
             .then( (response) => {
+                // diplay name, firstname and profile image
                 this.profileFirstname = response.data.first_name
                 this.profileName = response.data.name
                 this.profileImg = response.data.imageUrl
-                console.log('réponse', response.data)
+                
             })
             .catch((error) => {
                 console.log('error', error)
                 
             })
-            
-        
         },
 
         beforeDestroy() {
             window.removeEventListener("click", this.close);
-        },
-                
-
-        
-        
-        
+        }
+             
     }
+
 </script>
 
 <style scoped>

@@ -3,9 +3,9 @@
         <div class="small-container">
             <h1>Se connecter</h1>
             <form>
-            <div v-if="this.$store.state.showValidSignIn" class="welcomeMessage">Bienvenue sur Groupomania, vous pouvez maintenant vous connecter pour lire et partager des articles</div>
+                <!-- Welcome message for new users -->
+                <div v-if="this.$store.state.showValidSignIn" class="welcomeMessage">Bienvenue sur Groupomania, vous pouvez maintenant vous connecter pour lire et partager des articles</div>
             
-                
                 <div :class="{ 'form-group--error': $v.email.$error }">
                     <label for="email">Email</label>
                     <input type="email" id="email" v-model.trim="email" @input="setEmail($event.target.value)">
@@ -26,85 +26,79 @@
                     
                 </div>
             </form>
-            
-            
-            
-
         </div>
-        
-
     </div>   
 
 </template>
+
 <script>
 
+    import { required, email} from 'vuelidate/lib/validators'
 
-import { required, email} from 'vuelidate/lib/validators'
+    export default {
+        name: 'login',
+        data: function(){
+            return{
+                email: 'rachel.green@centralperk.com',
+                password: 'ross',
+                submitStatus: null,
+                btnSubmit: false
+                
+                
+            }
+        },
 
-
-
-
-export default {
-    name: 'login',
-    data: function(){
-        return{
-            email: 'rachel.green@centralperk.com',
-            password: 'ross',
-            submitStatus: null,
-            btnSubmit: false
+        validations:{
             
-            
-        }
-    },
-    
+            email:{
+                required,
+                email,
+                
+            },
+            password:{
+                required,
+                //minLength: minLength(8)
+            }
+        },
 
-    validations:{
+        methods: {
+            setEmail(value) {
+                this.email = value
+                this.btnSubmit = true
+                this.$v.email.$touch()
+                if(this.$v.email.$error || !this.password || !value){
+                        this.btnSubmit = false
+                    }
+            },
+            setPassword(value) {
+                this.password = value
+                this.btnSubmit = true
+                this.$v.password.$touch()
+                if(this.$v.password.$error || !this.email || !value){
+                        this.btnSubmit = false
+                    }
+            },
         
-        email:{
-            required,
-            email,
+            login () {
+                this.$store.dispatch('login', {
+                    // credentials for the login action in the store
+                    employee : {
+                        email: this.email,
+                        password: this.password
+                    }
+                })
+                .then(() => {
+                // redirect to homepage
+                this.$router.push({ name: 'home' })
+                })
+                
+            },
             
-        },
-        password:{
-            required,
-            //minLength: minLength(8)
         }
-    },
-    methods: {
-        setEmail(value) {
-            this.email = value
-            this.btnSubmit = true
-            this.$v.email.$touch()
-            if(this.$v.email.$error || !this.password || !value){
-                    this.btnSubmit = false
-                }
-        },
-        setPassword(value) {
-            this.password = value
-            this.btnSubmit = true
-            this.$v.password.$touch()
-            if(this.$v.password.$error || !this.email || !value){
-                    this.btnSubmit = false
-                }
-        },
-       
-        login () {
-            this.$store.dispatch('login', {
-                employee : {
-                    email: this.email,
-                    password: this.password
-                }
-            })
-            .then(() => {
-              this.$router.push({ name: 'home' })
-            })
-            
-        },
+
         
     }
 
-    
-}
 </script>
 
 <style scoped>

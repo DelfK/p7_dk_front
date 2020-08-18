@@ -8,19 +8,20 @@
         </div>
 
     </div>
-
-
 </template>
 
 <script>
-import Welcome from './Header/Welcome'
 
-export default {
-    name: 'Splash',
-    components: {
-        'welcome': Welcome
+    import Welcome from './Header/Welcome'
+
+    export default {
+
+        name: 'Splash',
+        components: {
+            'welcome': Welcome
+        }
     }
-}
+
 </script>
 
 <style scoped>

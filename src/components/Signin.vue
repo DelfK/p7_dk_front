@@ -52,179 +52,198 @@
                         <ul>
                             <li v-bind:key="index" v-for="(error, index) in errors">{{error}}</li>
                         </ul>
-                    </p>
-  
-                    
+                    </p>    
                 </div>
             </form>
-            
-            
-            
-
-        </div>
-        
-
+        </div>   
     </div>
-
 </template>
+
 <script>
-import axios from 'axios'
-import { required, minLength, maxLength, email, alphaNum} from 'vuelidate/lib/validators'
 
+    import axios from 'axios'
+    import { required, minLength, maxLength, email, alphaNum} from 'vuelidate/lib/validators'
 
+    export default {
+        name: 'signin',
 
-export default {
-    name: 'signin',
-    data: function(){
-        return{
-            firstname: '',
-            name:'',
-            email:'',
-            password:'',
-            submitStatus: null,
-            emailUnique: null,
-            errorUserExist: null,
-            btnSubmit: false,
-            displayConfirmation: false,
-            errors: [ ]
-        }
-    },
-
-    validations:{
-        firstname:{
-            required,
-            minLength: minLength(2),
-            maxLength: maxLength(30)
+        data: function(){
+            return{
+                firstname: '',
+                name:'',
+                email:'',
+                password:'',
+                submitStatus: null,
+                emailUnique: null,
+                errorUserExist: null,
+                btnSubmit: false,
+                displayConfirmation: false,
+                errors: [ ]
+            }
         },
-        name:{
-            required,
-            minLength: minLength(4),
-            maxLength: maxLength(30)
-        },
-        email:{
-            required,
-            email,
-            maxLength: maxLength(30)
-        },
-        password:{
-            required,
-            minLength: minLength(8),
-            maxLength: maxLength(20),
-            alphaNum
-        }
-    },
-    watch: {
-            errors: function(){
-                const ctx = this
-                setTimeout(
-                    function(){
-                        if(ctx.errors){
-                            ctx.errors = false
-                        }
-                    }, 3500
-                )
+
+        validations:{
+            firstname:{
+                required,
+                minLength: minLength(2),
+                maxLength: maxLength(30)
             },
-    },
-    methods: {
-        setFirstname(value) {
-            this.firstname = value
-            this.btnSubmit = true
-            this.$v.firstname.$touch()
-            if(this.$v.firstname.$error || !this.name || !this.email || !this.password || !value){
-                this.btnSubmit = false
-            }
-        },
-        setName(value) {
-            this.name = value
-            this.btnSubmit = true
-            this.$v.name.$touch()
-            if(this.$v.name.$error || !this.firstname || !this.email || !this.password || !value){
-                this.btnSubmit = false
-            }
-        },
-        setEmail(value) {
-            this.email = value
-            this.btnSubmit = true
-            this.$v.email.$touch()
-            if(this.$v.email.$error || !this.name || !this.firstname || !this.password || !value){
-                this.btnSubmit = false
-            }
-        },
-        setPassword(value) {
-            this.password = value
-            this.btnSubmit = true
-            this.$v.password.$touch()
-            if(this.$v.password.$error || !this.name || !this.email || !this.firstname || !value){
-                this.btnSubmit = false
-            }
-        },
-        submit() {
-            console.log('submit!')
-            this.$v.$touch()
-            if (this.$v.$invalid) {
-                this.submitStatus = 'ERROR'
-                
-            } else {
-                setTimeout(() => {
-                this.submitStatus = 'OK'
-                }, 500)
-                
+
+            name:{
+                required,
+                minLength: minLength(4),
+                maxLength: maxLength(30)
+            },
+
+            email:{
+                required,
+                email,
+                maxLength: maxLength(30)
+            },
+
+            password:{
+                required,
+                minLength: minLength(8),
+                maxLength: maxLength(20),
+                alphaNum
             }
         },
 
-        sendData: function(){
-            axios.post('http://localhost:4000/api/employee/signin', {
-                
-                    employee : {
-                        firstname: this.firstname,
-                        name: this.name,
-                        email: this.email,
-                        password: this.password
-                        }
-                
-            })
-            .then( (response) => {
+        watch: {
+                // hide errors after a timeout of 3500
+                errors: function(){
+                    const ctx = this
+                    setTimeout(
+                        function(){
+                            if(ctx.errors){
+                                ctx.errors = false
+                            }
+                        }, 3500
+                    )
+                },
+        },
 
-                    console.log(response.data);
-                    this.emailUnique = true
+        methods: {
+
+            setFirstname(value) {
+                this.firstname = value
+                this.btnSubmit = true
+                this.$v.firstname.$touch()
+
+                // enable submit button only if no errors
+                if(this.$v.firstname.$error || !this.name || !this.email || !this.password || !value){
+                    this.btnSubmit = false
+                }
+            },
+
+            setName(value) {
+                this.name = value
+                this.btnSubmit = true
+                this.$v.name.$touch()
+
+                // enable submit button only if no errors
+                if(this.$v.name.$error || !this.firstname || !this.email || !this.password || !value){
+                    this.btnSubmit = false
+                }
+            },
+
+            setEmail(value) {
+                this.email = value
+                this.btnSubmit = true
+                this.$v.email.$touch()
+
+                // enable submit button only if no errors
+                if(this.$v.email.$error || !this.name || !this.firstname || !this.password || !value){
+                    this.btnSubmit = false
+                }
+            },
+
+            setPassword(value) {
+                this.password = value
+                this.btnSubmit = true
+                this.$v.password.$touch()
+
+                // enable submit button only if no errors
+                if(this.$v.password.$error || !this.name || !this.email || !this.firstname || !value){
+                    this.btnSubmit = false
+                }
+            },
+
+            submit() {
+                this.$v.$touch()
+                if (this.$v.$invalid) {
+                    this.submitStatus = 'ERROR'
+                    
+                } else {
+                    setTimeout(() => {
+                    this.submitStatus = 'OK'
+                    }, 500)
+                    
+                }
+            },
+
+            sendData: function(){
+
+                axios.post('http://localhost:4000/api/employee/signin', {
+                    
+                        employee : {
+                            firstname: this.firstname,
+                            name: this.name,
+                            email: this.email,
+                            password: this.password
+                            }
+                    
+                })
+                .then( () => {
+
+                        this.emailUnique = true
+                        this.name = null
+                        this.firstname = null
+                        this.email = null
+                        this.password = null
+                        this.btnSubmit = false
+                        this.displayConfirmation = true
+
+                        //redirect to login page
+                        this.$router.push({ name: 'login' });
+
+                        // display welcome message on the login page
+                        this.$store.state.showValidSignIn = true
+    
+                })
+                .catch( (error) => {
+                    // save error when user exists 
+                    this.errorUserExist = error.response.data.error
+
+                    // save errors from server in array to display them
+                    const errors = error.response.data
+                    for(const error in errors){
+                        this.errors.push(errors[error].msg)
+                        
+                    }
+
+                    // empty the inputs
                     this.name = null
                     this.firstname = null
                     this.email = null
                     this.password = null
                     this.btnSubmit = false
-                    this.displayConfirmation = true
-                    this.$router.push({ name: 'login' });
-                    this.$store.state.showValidSignIn = true
- 
-            })
-            .catch( (error) => {
-                this.errorUserExist = error.response.data.error
-            
-                const errors = error.response.data
-                for(const error in errors){
-                    this.errors.push(errors[error].msg)
-                       
-                }
-                this.name = null
-                this.firstname = null
-                this.email = null
-                this.password = null
-                this.btnSubmit = false
 
-                this.$v.name.$reset()
-                this.$v.firstname.$reset()
-                this.$v.email.$reset()
-                this.$v.password.$reset()
+                    // reset all errors
+                    this.$v.name.$reset()
+                    this.$v.firstname.$reset()
+                    this.$v.email.$reset()
+                    this.$v.password.$reset()
+                    
+                    this.errorNotValid = error.response.data
+                    this.emailUnique = false
+                    
+                    
+                });
                 
-                this.errorNotValid = error.response.data
-                this.emailUnique = false
-                
-                
-            });
-            
+            }
         }
     }
-}
 </script>
 
 <style scoped>

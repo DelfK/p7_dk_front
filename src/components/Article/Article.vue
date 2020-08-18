@@ -14,14 +14,14 @@
 
                 <div class="commentaire">
                     <div class="comment">
-                            <a href="#comments" v-smooth-scroll="{duration: 1200, offset: 0}"><img class="responsive-image" src="../assets/speech-bubble.svg" alt="scroll to comment"></a>
+                            <a href="#comments" v-smooth-scroll="{duration: 1200, offset: 0}"><img class="responsive-image" src="../../assets/speech-bubble.svg" alt="scroll to comment"></a>
                         
                     </div>   
                 </div>
                     
                 <div class="partage">
                     <div class="share" v-on:click="toggleShowForm">
-                        <img class="responsive-image" src="../assets/connection.svg" alt="lien partage">
+                        <img class="responsive-image" src="../../assets/connection.svg" alt="lien partage">
                     </div>   
                 </div>
                 
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-    import http from '../services'
+    import http from '../../services'
     import ShareForm from './ShareForm'
     import comments from './Comments'
     

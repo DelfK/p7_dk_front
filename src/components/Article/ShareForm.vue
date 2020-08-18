@@ -19,7 +19,7 @@
 </template>
 
 <script>
-    import http from '../services'
+    import http from '../../services'
 import { setTimeout } from 'timers';
     export default {
         name: "ShareForm",
@@ -158,7 +158,7 @@ datalist option{
 }
 
 #employee{
-    background: url('../assets/adduser.svg') no-repeat 10px 5px;
+    background: url('../../assets/adduser.svg') no-repeat 10px 5px;
     background-size: 20px;
     color: #90a8b8
 }

@@ -3,7 +3,6 @@
         <div class="small-container">
             <h1>Commentaires de la communauté</h1>
             <div class="noComments" v-if="noComments"><img src="../assets/interrogation.svg" alt=""></div>
-            
             <ul>
                 <li v-bind:key="index" v-for="(comment, index) in comments">
                         
@@ -28,9 +27,12 @@
 </template>
 
 <script>
+
     import http from '../services'
+
     export default {
         name:"moderation",
+
         data() {
             return {
                comments: [],
@@ -39,6 +41,7 @@
                btnTitleApprouve: "Approuver"
             }
         },
+
         created(){
             return http
             .get(`/api/employee/comments`)
@@ -58,47 +61,55 @@
                 }
                 
                 
-            })
-            
-            
+            })  
         },
+
         methods:{
             deleteComment(commentId, index){
                 return http
+                // remove from DB
                 .delete(`/api/employee/comments/${commentId}`)
                 .then( () => {
+                        // remove comment from UI
                         this.comments.splice(index, 1)
                     }
                     
                 )
             },
+            
             moderateComment(commentId, approuve, comment){
-
+                // hide comment from UI
                 if(approuve == 1) {
                     return http
+                    // hide comment
                     .post(`/api/employee/comments/${commentId}/remove`)
                     .then( () => {
+                        // change button name
                         comment.btnTitle = this.btnTitleApprouve
+
+                        // remove the css class redBtn
                         comment.hide = false
+
                         comment.approuve = 0
-                        console.log('approuve: ' + comment.approuve)
-                         
-                        
                     })
+
+                // Approuve comment
                 } else {
                     return http
                     .post(`/api/employee/comments/${commentId}/approuve`)
                     .then( () => {
+                        // change button name
                         comment.btnTitle = this.btnTitleHide
+
+                        // add the css class redBtn
                         comment.hide = true
+
                         comment.approuve = 1
                         
                     })
                 }
                 
-            }
-
-            
+            }    
         }
     }
 </script>

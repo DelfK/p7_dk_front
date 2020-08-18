@@ -11,7 +11,7 @@
                 
                 <div class="error" v-if="!$v.content.required">Ce champs est requis</div>
                 <div class="error" v-if="!$v.content.minLength">Le contenu doit contenir au moins {{$v.content.$params.minLength.min}} lettres.</div>
-                <div class="error" v-if="!$v.content.maxlength">Le contenu ne doit pas contenir plus de {{$v.content.$params.maxLength.min}} lettres.</div>
+                <div class="error" v-if="!$v.content.maxlength">Le contenu ne doit pas contenir plus de {{$v.content.$params.maxLength.max}} lettres.</div>
                 <p class="errorMsg">
                     <ul>
                         <li v-bind:key="index" v-for="(error, index) in errors">{{error}}</li>
@@ -49,7 +49,7 @@
 </template>
 
 <script>
-    import http from '../services'
+    import http from '../../services'
     import { required, minLength, maxLength} from 'vuelidate/lib/validators'
     
     export default {

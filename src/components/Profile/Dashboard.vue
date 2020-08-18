@@ -16,20 +16,25 @@
 </template>
 
 <script>
+
     import DashboardArticles from './DashboardArticles'
     import DashboardShared from './DashboardShared'
+
     export default {
         name: 'Dashboard',
+
         data() {
             return {
                 showArticles: true,
                 showShares: false
             }
         },
+
         components:{
             'articles': DashboardArticles,
             'articlesShared' : DashboardShared
         },
+        
         methods: {
             toggleArticles: function(){
                 this.showArticles = true
@@ -42,6 +47,7 @@
             }
         }
     }
+
 </script>
 
 <style  scoped>

@@ -1,74 +1,69 @@
 <template>
     <div class="container">
         <div class="small-container">
-        <h2>Articles de la communauté</h2>
-        
-        <ul>
-            <li v-bind:key="index" v-for="(article, index) in allArticles">
-                <div class="articleResult">
-                    <router-link v-bind:to="`/article/${article.employee_id}/${article.id}`">
-                        <div class="vignette">
-                            <img v-bind:src="article.imageUrl" alt="">
-                        </div>
-                    </router-link>
-                    <div class="details">
-                        
-                        <div>
-                            <router-link v-bind:to="`/article/${article.employee_id}/${article.id}`"><h3>{{article.title}}</h3></router-link>
-                            <p>{{article.content.slice(0, 130)}}...</p>
-                        </div>
-                        <div class="auteur">
+            <h2>Articles de la communauté</h2>
+            
+            <ul>
+                <li v-bind:key="index" v-for="(article, index) in allArticles">
+                    <div class="articleResult">
+                        <router-link v-bind:to="`/article/${article.employee_id}/${article.id}`">
+                            <div class="vignette">
+                                <img v-bind:src="article.imageUrl" alt="">
+                            </div>
+                        </router-link>
+                        <div class="details">
+                            
                             <div>
-                                <span>{{article.first_name}} {{article.name}}</span>  - {{ article.dateCreated | moment("dddd Do MMMM YYYY") }}
+                                <router-link v-bind:to="`/article/${article.employee_id}/${article.id}`"><h3>{{article.title}}</h3></router-link>
+                                <p>{{article.content.slice(0, 130)}}...</p>
                             </div>
-                            <div class="partage">
-                                <div class="comment"></div>
-                                <div class="share">
-                                    <router-link v-bind:to="`/article/${article.employee_id}/${article.id}`"><img class="responsive-image" src="../assets/connection.svg" alt="lien partage"></router-link>
+                            <div class="auteur">
+                                <div>
+                                    <span>{{article.first_name}} {{article.name}}</span>  - {{ article.dateCreated | moment("dddd Do MMMM YYYY") }}
                                 </div>
-                            </div>
+                                <div class="partage">
+                                    <div class="comment"></div>
+                                    <div class="share">
+                                        <router-link v-bind:to="`/article/${article.employee_id}/${article.id}`"><img class="responsive-image" src="../assets/connection.svg" alt="lien partage"></router-link>
+                                    </div>
+                                </div>
+                            </div>  
                         </div>
-                        
-                        
-
-                    </div>
-                </div>
-                
-            </li>
-                
-        </ul>
-
-    </div>
-
+                    </div>   
+                </li>       
+            </ul>
+        </div>
     </div>
     
 </template>
 
 <script>
+
     import http from '../services'
-    
 
     export default {
         name: 'Home',
+
         data() {
             return {
                 allArticles: [],
                 employees:[]
             }
         },
+
+        // display all the employees' articles on homepage
         created(){
             return http
             .get('/api/employee/stories')
             .then(response => {
-                console.log(response.data)
                 for(const article of response.data){
                     this.allArticles.push(article)
-                }
-                
+                }  
             })
         }
         
     }
+
 </script>
 
 <style scoped>

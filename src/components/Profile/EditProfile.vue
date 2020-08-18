@@ -1,26 +1,31 @@
 <template>
     <div class="container">
+
         <div class="small-container">
+
             <h1>Mes infos</h1>
             <form @submit.prevent="submit">
+
                 <div class="imageEdit">
                     <div class="avatarEdit">
                         <img class="responsive-image" v-bind:src="profileImage" alt="">
                         <input type="file" id="myFile" ref="file" name="filename" @change="onFileChange" accept="image/png, image/jpeg">  
                     </div>     
                 </div>
-               
-                <p class="errorMsg">{{errorMsg}}</p> 
+                <p class="errorMsg">{{errorMsg}}</p>
+
                 <div class="editSection" :class="{'form-group--error': $v.name.$error }">
                     <label for="nom">Mon nom</label>
                     <input ref="name" type="text" id="nom" v-model="name" @input="setName($event.target.value)">
                 </div>
                 <div class="error" v-if="!$v.name.required">Ce champs est requis</div>
+
                 <div class="editSection" :class="{ 'form-group--error': $v.firstname.$error }">
                     <label for="prenom">Mon prénom</label>
                     <input ref="firstname" type="text" id="prenom" v-model="firstname" @input="setFirstname($event.target.value)">
                 </div>
                 <div class="error" v-if="!$v.firstname.required">Ce champs est requis</div>
+
                 <div class="editSection" :class="{ 'form-group--error': $v.email.$error }">
                     <label for="email">Mon email</label>
                     <input ref="email" type="email" id="email" v-model="email" @input="setEmail($event.target.value)">
@@ -43,6 +48,7 @@
                     <div class="validateMsg" v-if ="validMsg">Votre profil a bien été mis à jour<span class="fermer" v-on:click="toggleValideMsg">x</span></div> 
                 </div>
             </form>
+
             <h1>Mon compte</h1>
             <div class="suppression">
                 <div>
@@ -58,17 +64,18 @@
 </template>
 
 <script>
+
     import http from '../../services'
     import { required, email} from 'vuelidate/lib/validators'
     
-
     export default {
         name: "EditProfile",
+
         data() {
             return {
                 file: '',
                 name: null,
-                firstname:null,
+                firstname: null,
                 email: null,
                 position: null,
                 profileImage: null,
@@ -102,23 +109,21 @@
         },
 
         created(){
-            
+            // display the user information (name, firstname, profile image and email)
             const id = JSON.parse(localStorage.getItem('user')).employeeId
             return http
             .get(`/api/employee/${id}`)
             .then( response => {
-                console.log(response.data)
                 this.name = response.data.name
                 this.firstname = response.data.first_name
                 this.email = response.data.email
                 this.profileImage = response.data.imageUrl
                 this.userId = response.data.id
-                if(!response.data.position)    {
+                if(!response.data.position) {
+                    // default if no position has been provided
                     this.position = 'Renseigner mon poste'
                 }
-                this.position = response.data.position
-
-                    
+                this.position = response.data.position       
             })
             
         },
@@ -126,21 +131,22 @@
         methods: {
             
             onFileChange(e) {
+                // display a preview of the uploaded image
+                this.file = e.target.files[0]
+                this.profileImage = URL.createObjectURL(this.file);
 
-           
-            this.file = e.target.files[0]
-            this.profileImage = URL.createObjectURL(this.file);
-
-            let img = new Image();
-            img.src = URL.createObjectURL(this.file)
+                let img = new Image();
+                img.src = URL.createObjectURL(this.file)
                 img.onload = () => {
+                    // check if image has a valid format
                     if (img.height < img.width) {
                     this.errorMsg = "Merci de choisir une image au format carré ou portrait";
+                    // disable submit button if error
                     this.btnSubmit = false
-                    this.profileImage = null
 
+                    // hide the preview
+                    this.profileImage = null
                     return false;
-                    
                     }
                     this.errorMsg = null
                     this.btnSubmit = true
@@ -189,12 +195,9 @@
             },
 
             submit() {
-                console.log('submit!')
                 this.$v.$touch()
                 if (this.$v.$invalid) {
-                    this.submitStatus = 'ERROR'
-                    
-                    
+                    this.submitStatus = 'ERROR'   
                 } else {
                     setTimeout(() => {
                     this.submitStatus = 'OK'
@@ -205,16 +208,14 @@
 
             updateProfile() {
                 if(this.btnSubmit){
-                    
-
                     let formData = new FormData();
                     let file = this.file
-
+                    
+                    // if no file is provided send only the body request
                     if(!file){
                         return http
                         .put(`/api/employee/${this.userId}`,
                             {
-                            
                                 employee:{
                                     name: this.name,
                                     firstname: this.firstname,
@@ -224,18 +225,18 @@
                                 },
                                 
                            }
-
-
                         )
                         .then( () =>{
+                            // display the confirmation message
                             this.validMsg = true
                         })
                     }else{
+                        // if file, send the form data
                         formData.append('name',this.name);
                         formData.append('firstname',this.firstname);
                         formData.append('email',this.email);
                         formData.append('position',this.position);
-                        formData.append('image',file , file.name);
+                        formData.append('image', file , file.name);
                         
                         return http
                         .put(`/api/employee/${this.userId}`,
@@ -247,7 +248,8 @@
                             }
 
                         )
-                        .then( () =>{
+                        .then( () => {
+                            // display the confirmation message
                             this.validMsg = true
                         })
 
@@ -257,13 +259,16 @@
             },
 
             annuler(){
+                // redirect to profile page when cancel button is clicked
                 const id = JSON.parse(localStorage.getItem('user')).employeeId
                 return http
+                // get the fullname of the user
                 .get(`/api/employee/${id}`)
                 .then( response => {
                         return response.data.first_name  + response.data.name
                 })
                 .then( name => {
+                    // redirect
                     this.$router.push(`/${name}`)
                 })
             },
@@ -273,10 +278,10 @@
                 return http
                 .delete(`/api/employee/${employeeId}`)
                 .then( () => {
-                    console.log('compte à désactiver')
+                    // logout
                     this.$store.dispatch('logout')
+                    // redirect to splash screen
                     this.$router.push({ name : 'splash'})
-                    console.log('compte désactivé')
                 })
             }
         }

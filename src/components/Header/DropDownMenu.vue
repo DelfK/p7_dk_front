@@ -1,4 +1,5 @@
 <template>
+
     <div class='dropdown'>
 
     <img src="../../assets/triangle.png" alt="">
@@ -10,14 +11,17 @@
         </ul>
 
     </div>
+
 </template>
 
 <script>
     import http from '../../services'
+
     export default {
         name: 'DropDownMenu',
 
         computed: {
+            // if user is the moderator display the menu "Commentaires"
             moderate() {
             return this.$store.state.moderator
             }
@@ -37,9 +41,6 @@
                 return http
                 .get(`/api/employee/${id}`)
                 .then( response => {
-                        if(response.data.role === 'moderator'){
-                            this.moderator = true
-                        }
                         return response.data.first_name  + response.data.name
                         
                 })
@@ -47,22 +48,7 @@
                     this.$router.push(`/${name}`)
                 })
             },
-        },
-
-        created(){
-            const id = JSON.parse(localStorage.getItem('user')).employeeId
-            return http
-            .get(`/api/employee/${id}`)
-            .then( response => {
-                    if(response.data.role === 'moderator'){
-                        return this.moderator = true
-                    }
-                    
-                    
-            })
-
         }
-        
     }
 </script>
 
