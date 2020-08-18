@@ -2,9 +2,9 @@
     
     <div class="welcome_btn">
         <router-link to='/signin'>
-        <div class="btn btn-primary">S'inscrire</div> 
+        <button class="btn btn-primary">S'inscrire</button> 
         </router-link>
-        <router-link to="/login"><div class="btn btn-secondary">Se connecter</div></router-link>       
+        <router-link to="/login"><button class="btn btn-secondary">Se connecter</button></router-link>       
     </div>             
 
 

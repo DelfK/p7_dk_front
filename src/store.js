@@ -11,7 +11,8 @@ export default new Vuex.Store({
         errMsg: null,
         showMenu: false,
         showValidSignIn: false,
-        moderator: null
+        moderator: null,
+        deletedAccountMsg: false
         
     },
     mutations:{

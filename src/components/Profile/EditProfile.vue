@@ -282,6 +282,8 @@
                     this.$store.dispatch('logout')
                     // redirect to splash screen
                     this.$router.push({ name : 'splash'})
+                    // display confirmation message
+                    this.$store.state.deletedAccountMsg = true
                 })
             }
         }

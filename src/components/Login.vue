@@ -94,6 +94,10 @@
                 
             },
             
+        },
+
+        beforeDestroy(){
+            this.$store.showValidSignIn = false
         }
 
         

@@ -32,8 +32,8 @@
     font-size: 16px;
     line-height: 1.6;
     color: #333;
+    min-width: 320px;
     
-  
   }
 
   h1{
@@ -45,6 +45,7 @@
     padding: 120px 0;
     margin-left: auto;
     margin-right: auto;
+   
   }
 
   #app .small-container{
@@ -84,6 +85,7 @@
       display: inline-block;
       border-radius: 5px;
       font-weight: 500;
+      font-size: 0.95rem;
       
  }
 
@@ -257,6 +259,17 @@ form input:focus, form textarea:focus{
 
 .toggleContent{
   padding: 20px 0;
+}
+
+@media (max-width: 768px){
+  #app{
+    font-size: 15px
+  }
+
+  form {
+    padding: 0 50px;
+}
+
 }
 
 

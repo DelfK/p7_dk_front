@@ -150,5 +150,28 @@ ul{
     list-style-type: none;
 }
 
+@media (max-width: 768px){
+
+    .articleResult{
+    flex-direction: column;
+    margin: 40px 0  
+    }
+    .details{
+        margin: 18px 0
+    }
+
+    .auteur div:first-child{
+        flex: 0 0 92%;
+    }
+
+    .auteur div:nth-child(2){
+        flex: 0 0 8%;
+    }
+
+    .share{
+        padding: 4px
+    }
+}
+
 
 </style>

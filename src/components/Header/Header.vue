@@ -64,11 +64,6 @@ export default{
     display: block
 }
 
-.header_navigation{
-    /*flex: 0 0 28%;*/
-    
-}
-
 .createArticle {
     flex: 2;
     text-align: right;
@@ -85,6 +80,13 @@ export default{
     opacity: 0.8;
     color: #909090
     
+}
+
+@media (max-width: 768px){
+  .createArticle .btn{
+      display: none
+  }
+
 }
 
 </style>

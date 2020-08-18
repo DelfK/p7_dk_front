@@ -5,7 +5,6 @@
             <div class="noComments" v-if="noComments"><img src="../assets/interrogation.svg" alt=""></div>
             <ul>
                 <li v-bind:key="index" v-for="(comment, index) in comments">
-                        
                         <div class="auteurComm">
                             <img class="avatar" v-bind:src="comment.imageUrl" alt="">
                             <p>{{comment.first_name}} {{comment.name}}</p>
