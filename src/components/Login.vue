@@ -39,8 +39,8 @@
         name: 'login',
         data: function(){
             return{
-                email: 'rachel.green@centralperk.com',
-                password: 'ross',
+                email: null,
+                password: null,
                 submitStatus: null,
                 btnSubmit: false
                 
