@@ -161,15 +161,15 @@ ul{
     }
 
     .auteur div:first-child{
-        flex: 0 0 92%;
+        flex: 0 0 91%;
     }
 
     .auteur div:nth-child(2){
-        flex: 0 0 8%;
+        flex: 0 0 9%;
     }
 
     .share{
-        padding: 4px
+        padding: 9px
     }
 }
 

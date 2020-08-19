@@ -90,6 +90,18 @@ p{
     font-size: 1.5rem;
 }
 
+@media (max-width: 768px){
+    .fullName p{
+        font-size: 1.1rem
+    }
+
+    .fullName h1{
+        font-size: 1.3rem
+    }
+}
+
+
+
 
 
 </style>

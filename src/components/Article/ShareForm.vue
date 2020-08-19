@@ -167,6 +167,14 @@ datalist option{
     padding: 0 3px
 }
 
+
+
+@media (max-width: 576px){
+    form input{
+        width: 60%
+    }
+}
+
 </style>
 
 

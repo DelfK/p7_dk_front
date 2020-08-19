@@ -286,5 +286,26 @@ form{
     background-color: #e6e6e6;
 }
 
+@media (max-width: 768px){
+  .createArticle{
+      display: none
+  }
+
+  .editSection{
+      flex-direction: column;
+      align-items: flex-start;
+      
+  }
+
+  .editSection textarea{
+      margin: 0
+  }
+
+  
+
+  
+}
+
+
 
 </style>

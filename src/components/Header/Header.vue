@@ -83,10 +83,11 @@ export default{
 }
 
 @media (max-width: 768px){
-  .createArticle .btn{
+  .createArticle{
       display: none
   }
 
+  
 }
 
 </style>

@@ -79,7 +79,6 @@
      justify-content: flex-end
  }
 
- 
 
  .header_id p{
      margin: auto 10px;

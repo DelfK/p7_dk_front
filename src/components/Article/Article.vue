@@ -117,17 +117,14 @@
 }
 
 .profile {
-    flex: 0 0 calc(90% - 13px);
+    flex: 0 0 85%;
     display: flex
 }
 
-.commentaire{
-    flex: 0 0 5%
+.commentaire, .partage{
+    width: 40px
 }
 
-.partage{
-    flex: 0 0 5%
-}
 
 .auteur{
     margin: 0 0 0 13px;  
@@ -174,6 +171,12 @@ p{
 
 h1{
     text-align: left
+}
+
+@media (max-width: 576px){
+  .profile{
+      flex: 0 0 70%
+  }
 }
 
 

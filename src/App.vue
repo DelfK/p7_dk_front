@@ -268,7 +268,22 @@ form input:focus, form textarea:focus{
 
   form {
     padding: 0 50px;
-}
+
+  }
+
+  .avatarBig{
+    width:120px;
+    height: 120px
+    
+  }
+
+  #app .container{
+    padding: 80px 0;
+  }
+
+  
+
+  
 
 }
 

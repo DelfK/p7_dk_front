@@ -415,6 +415,26 @@ h2{
     margin: 0
 }
 
+@media (max-width: 768px){
+     .editSection{
+         flex-direction: column;
+         align-items: flex-start
+     }
+
+     .editSection label{
+         border-bottom: 1px solid #eee;
+         border-right: none;
+         width: 100%
+     }
+
+     .suppression{
+         flex-direction: column;
+         
+     }
+
+     
+}
+
 
 
 

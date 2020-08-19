@@ -111,4 +111,14 @@ ul{
     text-align: center
 }
 
+@media (max-width: 768px){
+     ul{
+         padding: 0
+     }
+
+    .articleImg{
+        display: none
+    }
+}
+
 </style>

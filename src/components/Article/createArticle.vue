@@ -373,11 +373,6 @@
     background-color: #FFD8D8;
 }
 
-
-
-
-
-
 h1{
     text-align: left
 }
@@ -446,6 +441,14 @@ ul{
     list-style-type: none;
     padding: 0;
     text-align: center
+}
+
+@media (max-width: 768px){
+.editSection{
+    flex-direction: column;
+    align-items: flex-start
+}
+
 }
 
 

@@ -200,6 +200,11 @@ li {
     
 }
 
+@media (max-width: 768px){
+  ul{
+      flex-direction: column
+  }
+}
 
 
 </style>
