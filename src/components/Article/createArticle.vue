@@ -320,7 +320,20 @@
     margin-left: 15px
 }
 
+@-moz-document url-prefix() {
+  .imageEdit {
+    width: auto !important;
+    height: auto !important;
+    border-radius: 0 !important;
+  }
 
+  #myFile{
+    color:inherit !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+  
+}
+}
 
 .imageEdit{
     width: 70px;
@@ -328,8 +341,7 @@
     border-radius: 50%;
     overflow:hidden;
     position: relative;
-    z-index:1;
-    
+    z-index:1;   
 }
 
 .previewImg{
