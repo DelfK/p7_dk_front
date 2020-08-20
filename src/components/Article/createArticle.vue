@@ -133,11 +133,12 @@
 
         methods: {
             onFileChange(e) {
-
-            this.file = e.target.files[0]
-            this.contentImg = URL.createObjectURL(this.file);
-            this.previewImg = URL.createObjectURL(this.file);
-            this.imageHided = false
+            
+                this.file = e.target.files[0]
+                this.contentImg = URL.createObjectURL(this.file);
+                this.previewImg = URL.createObjectURL(this.file);
+                this.imageHided = false
+            
 
             let img = new Image();
             img.src = URL.createObjectURL(this.file)
@@ -148,15 +149,10 @@
                     this.contentImg = null
                     this.previewImg = null
                     this.imageHided = true
-                    
-
                     return false;
+                    }
                     
-                    }
                     this.errorMsg = null
-                    if(!this.$v.title.$error && !this.$v.content.$error ){
-                        this.btnSubmit = true
-                    }
                     
                     return true
                 }
@@ -164,8 +160,6 @@
 
             sendArticle() {
                 if(this.btnSubmit){
-                    
-
                     let formData = new FormData();
                     let file = this.file
 
@@ -264,7 +258,9 @@
                 this.title = value
                 
                 this.$v.title.$touch()
-                if(this.$v.title.$error || this.$v.content.$error || !value){
+                if(this.$v.title.$error){
+                    this.btnSubmit = false
+                } else if (!this.content) {
                     this.btnSubmit = false
                 } else {
                     this.btnSubmit = true
@@ -275,7 +271,9 @@
             setContent(value) {
                 this.content = value
                 this.$v.content.$touch()
-                if(this.$v.content.$error || this.$v.title.$error || !value ){
+                if(this.$v.content.$error){
+                    this.btnSubmit = false
+                } else  if(!this.title) {
                     this.btnSubmit = false
                 } else {
                     this.btnSubmit = true
@@ -302,14 +300,11 @@
 
 #myFile::-webkit-file-upload-button {
   visibility: hidden;
-  
 }
 
 #myFile{
     border: none;
-    color:transparent;
-    
-    
+    color:transparent;  
 }
 
 .errorImg{

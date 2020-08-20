@@ -18,9 +18,7 @@
                     <input type="password" id="password" v-model.trim="password" @input="setPassword($event.target.value)">
                 </div>
                 <div class="error" v-if="!$v.password.required">Ce champs est requis</div>
-                <!--<div class="error" v-if="!$v.password.minLength">Le mot de pass doit contenir au moins {{$v.password.$params.minLength.min}} caractères.</div>-->
-                                    
-                <div class="envoyer">
+                 <div class="envoyer">
                     <button v-bind:class="{ inactive: !btnSubmit }" v-on:click.prevent="login" class="btn btn-primary" type="submit" :disabled="btnSubmit === false">Envoyer</button>
                     <p class="errorMsg">{{$store.state.errMsg}}</p>
                     
@@ -57,7 +55,7 @@
             },
             password:{
                 required,
-                //minLength: minLength(8)
+                
             }
         },
 
@@ -94,6 +92,10 @@
                 
             },
             
+        },
+
+        created(){
+            this.$store.state.errMsg = null
         },
 
         beforeDestroy(){

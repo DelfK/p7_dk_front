@@ -46,7 +46,7 @@
                 
                 <div class="envoyer">
                     <button v-bind:class="{ inactive: !btnSubmit }" v-on:click="sendData" class="btn btn-primary" type="submit" :disabled="btnSubmit === false">Envoyer</button>
-                    <p class="validateMsg" v-if="submitStatus === 'OK' && emailUnique && displayConfirmation">Merci! Vos informations ont bien été transmises</p>
+                    <p class="validateMsg" v-if="submitStatus === 'OK' && emailUnique">Merci! Vos informations ont bien été transmises</p>
                     <p class="errorMsg">{{errorUserExist}}</p>
                     <p class="errorMsg">
                         <ul>
@@ -77,7 +77,6 @@
                 emailUnique: null,
                 errorUserExist: null,
                 btnSubmit: false,
-                displayConfirmation: false,
                 errors: [ ]
             }
         },
@@ -202,7 +201,6 @@
                         this.email = null
                         this.password = null
                         this.btnSubmit = false
-                        this.displayConfirmation = true
 
                         //redirect to login page
                         this.$router.push({ name: 'login' });
@@ -215,7 +213,7 @@
                     // save error when user exists 
                     this.errorUserExist = error.response.data.error
 
-                    // save errors from server in array to display them
+                    // save errors from server in array to display in UI
                     const errors = error.response.data
                     for(const error in errors){
                         this.errors.push(errors[error].msg)

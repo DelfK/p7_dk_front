@@ -36,7 +36,6 @@ import { setTimeout } from 'timers';
         },
 
         created(){ 
-            console.log('créé')
             return http
             .get('/api/employee')
             .then((response) => {
@@ -44,9 +43,6 @@ import { setTimeout } from 'timers';
                     this.employees = response.data.employees
                         
                 }
-            console.log(this.employees)
-            
-                
                 
             })
         },
@@ -59,8 +55,6 @@ import { setTimeout } from 'timers';
                     if(this.employeeName == `${share.first_name} ${share.name}`){
                         
                         const id = share.id
-
-                        console.log('employee selected : ' + id + '_' + this.employeeName)
                         return http
                         .post(`/api/employee/${id}/stories/${storyId}/shares`, {
                 
@@ -94,7 +88,7 @@ import { setTimeout } from 'timers';
                 )
             },
 
-            msgError:function(){
+            msgError: function(){
                 const ctx = this
                 setTimeout(
                     function(){

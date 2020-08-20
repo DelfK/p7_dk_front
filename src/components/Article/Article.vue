@@ -79,7 +79,7 @@
             return http
             .get(`/api/employee/${this.employeeId}/stories/${this.id}`)
             .then( response => {
-                    console.log(response.data)
+                    
                     this.articleTitle =  response.data.title
                     this.articleAuteur =  response.data.first_name + ' ' + response.data.name
                     this.articleDate =  response.data.dateCreated
