@@ -51,7 +51,6 @@
                 <div class="envoyer">
                     <button v-on:click.prevent="annuler" class="btn btn-secondary">Annuler</button> 
                     <button v-on:click.prevent="sendArticle" v-bind:class="{ inactive: !btnSubmit }" class="btn btn-primary" type="submit">Envoyer</button> 
-                    <div class="validateMsg" v-if ="validMsg">L'article a bien été créé<span class="fermer" v-on:click="toggleValideMsg">x</span></div>
                 </div>
                 
    
@@ -74,9 +73,9 @@
                 title: null,
                 content: null,
                 contentImg: null,
+                storyId: null,
                 submitStatus: null,
                 errorMsg: null,
-                validMsg: false,
                 btnSubmit: false,
                 userId: null,
                 imageHided:true,
@@ -178,9 +177,8 @@
 
 
                         )
-                        .then( () =>{
-                            this.validMsg = true
-                            console.log("story créée")
+                        .then( response =>{
+                            this.storyId = response.data.story.id
                             this.title = null
                             this.content = null
                             this.previewImg = null
@@ -188,6 +186,8 @@
                             this.btnSubmit = false
                             this.$v.title.$reset()
                             this.$v.content.$reset()
+                            this.$router.push(`/article/${this.userId}/${this.storyId}`)
+                            
                         })
                         .catch( (error) => {
                             const errors = error.response.data.errors
@@ -195,7 +195,6 @@
                                 this.errors.push(errors[error].msg)
                                 
                             }
-                            console.log(this.errors)
                         })
                             
                             

@@ -79,7 +79,6 @@ export default [
             return http
             .get(`/api/employee/stories`)
             .then( response => {
-                console.log(response.data)
                 const exists = response.data.find( element => 
                         element.id === JSON.parse(to.params.id)
                     

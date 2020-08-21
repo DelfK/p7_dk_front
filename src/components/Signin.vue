@@ -220,11 +220,6 @@
                         
                     }
 
-                    // empty the inputs
-                    this.name = null
-                    this.firstname = null
-                    this.email = null
-                    this.password = null
                     this.btnSubmit = false
 
                     // reset all errors

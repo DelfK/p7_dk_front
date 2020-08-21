@@ -45,8 +45,7 @@
                     <button v-on:click.prevent="updateProfile" v-bind:class="{ inactive: !btnSubmit }" class="btn btn-primary" type="submit">Mettre à jour</button> 
                     <p v-if="submitStatus === 'ERROR'">Merci de renseigner vos informations</p>
                     <p v-if="submitStatus === 'OK'">Merci! Vos informations ont bien été transmises</p>
-                    <div class="validateMsg" v-if ="validMsg">Votre profil a bien été mis à jour<span class="fermer" v-on:click="toggleValideMsg">x</span></div> 
-                </div>
+                 </div>
             </form>
 
             <h1>Mon compte</h1>
@@ -81,7 +80,6 @@
                 profileImage: null,
                 submitStatus: null,
                 errorMsg: null,
-                validMsg: false,
                 btnSubmit: false,
                 userId: null,
                 
@@ -226,9 +224,12 @@
                                 
                            }
                         )
-                        .then( () =>{
-                            // display the confirmation message
-                            this.validMsg = true
+                        .then( response => {
+                        return response.data.first_name  + response.data.name
+                        })
+                        .then( name => {
+                            // redirect
+                            this.$router.push(`/${name}`)
                         })
                     }else{
                         // if file, send the form data
@@ -248,9 +249,13 @@
                             }
 
                         )
-                        .then( () => {
-                            // display the confirmation message
-                            this.validMsg = true
+                        .then( response => {
+                            return response.data.first_name  + response.data.name
+                        })
+                        .then( name => {
+                            // redirect
+                            console.log(name)
+                            //this.$router.push(`/${name}`)
                         })
 
                     }
