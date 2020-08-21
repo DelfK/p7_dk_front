@@ -8,7 +8,7 @@
                     <div class="articleResult">
                         <router-link v-bind:to="`/article/${article.employee_id}/${article.id}`">
                             <div class="vignette">
-                                <img v-bind:src="article.imageUrl" alt="">
+                                <img v-bind:src="article.imageUrl" alt="vers le contenu de l'article">
                             </div>
                         </router-link>
                         <div class="details">
@@ -24,7 +24,7 @@
                                 <div class="partage">
                                     <div class="comment"></div>
                                     <div class="share">
-                                        <router-link v-bind:to="`/article/${article.employee_id}/${article.id}`"><img class="responsive-image" src="../assets/connection.svg" alt="lien partage"></router-link>
+                                        <router-link v-bind:to="`/article/${article.employee_id}/${article.id}`"><img class="responsive-image" src="../assets/connection.svg" alt="vers le contenu de l'article"></router-link>
                                     </div>
                                 </div>
                             </div>  
@@ -113,7 +113,7 @@ h3{
 .auteur {
     display: flex;
     justify-content: space-between;
-    color: #aaa;
+    color: #909090;
 }
 
 .auteur div:first-child{

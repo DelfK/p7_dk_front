@@ -139,10 +139,10 @@ height: calc(100vh - 240px)
     opacity: 0.8
 }
 .approuver{
-    background-color: #92BFBA;
+    background-color: #62a097;
 }
 .redBtn{
-    background-color: #e78f09;
+    background-color: #d0740b;
     color: #FFF
 }
 
@@ -159,7 +159,8 @@ height: calc(100vh - 240px)
 }
 
 .auteurComm p{
-    color:#92BFBA
+    color:#62a097;
+    font-weight: 500
 }
 
 .content{
@@ -168,7 +169,7 @@ height: calc(100vh - 240px)
 
 .date{
     font-size: 0.90rem;
-    color: #92BFBA
+    color: #62a097
 }
 
 .title{

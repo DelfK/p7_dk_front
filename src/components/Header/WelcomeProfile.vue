@@ -1,12 +1,12 @@
 <template>
-    <div class="header_id" v-on:click="toggleMenu()">
+    <nav aria-label="Main Navigation" aria-haspopup="true" class="header_id" v-bind:aria-expanded="this.$store.state.expanded" v-on:click="toggleMenu()">
         <p>{{profileFirstname}} {{profileName}} </p> 
         <div class="avatar">
             <a href="#">
-                <img class="responsive-image" v-bind:src="profileImg" alt="">    
+                <img class="responsive-image" v-bind:src="profileImg" alt="image de profil - ouvre le menu de navigation">    
             </a>
          </div>
-    </div>
+    </nav>
 </template>
 
 <script>
@@ -20,7 +20,8 @@
             return {
                 profileImg: null,   
                 profileFirstname: null,
-                profileName: null,   
+                profileName: null, 
+ 
             }
     
         },
@@ -74,6 +75,7 @@
 </script>
 
 <style scoped>
+
  .header_id{
      display: flex;
      justify-content: flex-end
@@ -91,6 +93,8 @@
      cursor: pointer;
      
  }
+
+ 
 
 
 </style>

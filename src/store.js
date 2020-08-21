@@ -12,7 +12,8 @@ export default new Vuex.Store({
         showMenu: false,
         showValidSignIn: false,
         moderator: null,
-        deletedAccountMsg: false
+        deletedAccountMsg: false,
+        expanded: null
         
     },
     mutations:{
@@ -25,8 +26,10 @@ export default new Vuex.Store({
         SHOW_HIDE_MENU (state){
             if(state.showMenu === false){
                 state.showMenu = true
+                state.expanded = true
             } else {
                 state.showMenu = false
+                state.expanded = false
             }  
         },
 

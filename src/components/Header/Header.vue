@@ -1,10 +1,10 @@
 <template>
 
-    <div class="header">
+    <header role="banner" class="header">
 
         <router-link to="/home"><img src="../../assets/icon.png" alt="groupomania"></router-link>
         <div v-if="$route.meta.showWelcomeProfile" class="createArticle">
-            <div v-on:click="$router.push('/nouvelarticle')" class="btn btn-edit">Rédiger</div>
+            <button role="link" v-on:click="$router.push('/nouvelarticle')" class="btn btn-edit">Rédiger</button>
         </div>
 
         <div class="header_navigation">
@@ -16,7 +16,7 @@
             
         </div>
 
-    </div>
+    </header>
      
 </template>
 <script>
@@ -27,6 +27,7 @@ import DropDownMenu from './DropDownMenu'
 export default{
 
     name: "Header",
+
 
     components:{
         'welcome':Welcome,
@@ -73,7 +74,12 @@ export default{
 .createArticle .btn{
     background: url('../../assets/edit.svg') no-repeat 10px center;
     background-size: 18px;
-    padding: 5px 10px 5px 34px;
+    padding: 7px 10px 7px 34px;
+}
+
+.createArticle .btn:focus{
+    outline: auto;
+    
 }
 
 .createArticle .btn:hover{

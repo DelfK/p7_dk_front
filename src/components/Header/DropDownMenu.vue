@@ -2,12 +2,12 @@
 
     <div class='dropdown'>
 
-    <img src="../../assets/triangle.png" alt="">
-        <ul>
-            <li v-on:click="goToProfile">Profil</li>
-            <li v-on:click="$router.push('/nouvelarticle')">Nouvel article</li>
-            <li v-on:click="$router.push('/commentaires')" class="moderate" v-if="moderate">Commentaires</li>
-            <div class="btn" v-on:click="logout">Se déconnecter</div>
+    <img src="../../assets/down-triangle-white.svg" alt="">
+        <ul role="menu">
+            <li role="menuitem" v-on:click="goToProfile">Profil</li>
+            <li  role="menuitem" v-on:click="$router.push('/nouvelarticle')">Nouvel article</li>
+            <li role="menuitem" v-on:click="$router.push('/commentaires')" class="moderate" v-if="moderate">Commentaires</li>
+            <li role="menuitem" class="btn" v-on:click="logout">Se déconnecter</li>
         </ul>
 
     </div>
@@ -19,6 +19,7 @@
 
     export default {
         name: 'DropDownMenu',
+        
 
         computed: {
             // if user is the moderator display the menu "Commentaires"
@@ -60,15 +61,15 @@
     position: absolute;
     top: 65px;
     right: 15px;
-    background-color: #92BFBA;
-    font-size: 0.9rem;
+    background-color: #5d9f98;
+    
     
 }
 
 .dropdown img{
     position: absolute;
-    width: 10%;
-    top: -4%;
+    width: 13%;
+    top: 3%;
     left: 50%;
     transform: translate(-50%, -50%)
 }
@@ -89,6 +90,7 @@ ul li{
     padding: 8px 12px;
     border-bottom: 1px solid #eee;
     color: #FFF;
+    font-size: 0.9rem;
 }
 
 ul li:hover, .dropdown .btn:hover{

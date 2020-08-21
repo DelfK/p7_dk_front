@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <main role="main" class="container">
         <div class="small-container">
             <h1>{{articleTitle}}</h1>
             <div class="auteurDate">
@@ -14,14 +14,14 @@
 
                 <div class="commentaire">
                     <div class="comment">
-                            <a href="#comments" v-smooth-scroll="{duration: 1200, offset: 0}"><img class="responsive-image" src="../../assets/speech-bubble.svg" alt="scroll to comment"></a>
+                            <a href="#comments" v-smooth-scroll="{duration: 1200, offset: 0}"><img class="responsive-image" src="../../assets/speech-bubble.svg" alt="scroll vers le formulaire de création de commentaire"></a>
                         
                     </div>   
                 </div>
                     
                 <div class="partage">
                     <div class="share" v-on:click="toggleShowForm">
-                        <img class="responsive-image" src="../../assets/connection.svg" alt="lien partage">
+                        <img class="responsive-image" src="../../assets/connection.svg" alt="ouvre formulaire de partage">
                     </div>   
                 </div>
                 
@@ -37,7 +37,7 @@
         </div>
         
 
-    </div>
+    </main>
 </template>
 
 <script>
