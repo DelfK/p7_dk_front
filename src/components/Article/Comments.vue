@@ -127,34 +127,41 @@
             },
 
             sendComment(){
-                const id = JSON.parse(localStorage.getItem('user')).employeeId
+                const uuid = JSON.parse(localStorage.getItem('user')).employeeId
                 return http
-                .post(`/api/employee/${id}/stories/${this.storyId}/comments`,
-                    {
-                        comment:{
-                            content: this.content,
-                            employeeId: id
+                .get(`/api/employee/${uuid}`)
+                .then( response => {
+                    
+                    const id = response.data.id
+                    return http
+                    .post(`/api/employee/${id}/stories/${this.storyId}/comments`,
+                        {
+                            comment:{
+                                content: this.content,
+                                employeeId: id
 
+                            }
                         }
-                    }
 
-                )
-                .then( (response) => {
-                    this.content = null
-                    this.$v.content.$reset()
-                    this.btnSubmit = false
-                    this.validMsg = true
-                    this.comments.unshift(response.data.comment)
-                     
-                })
-                .catch( (error) => {
-                    const errors = error.response.data.errors
-                    for(const error in errors){
-                        this.errors.push(errors[error].msg)
+                    )
+                    .then( (response) => {
+                        this.content = null
+                        this.$v.content.$reset()
+                        this.btnSubmit = false
+                        this.validMsg = true
+                        this.comments.unshift(response.data.comment)
                         
-                    }
-                    this.btnSubmit = false  
+                    })
+                    .catch( (error) => {
+                        const errors = error.response.data.errors
+                        for(const error in errors){
+                            this.errors.push(errors[error].msg)
+                            
+                        }
+                        this.btnSubmit = false  
+                    })
                 })
+                
             },
             
                  

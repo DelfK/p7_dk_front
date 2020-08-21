@@ -45,27 +45,34 @@
 
         created(){
             // display articles shared with the user
-            const id = JSON.parse(localStorage.getItem('user')).employeeId
+            const uuid = JSON.parse(localStorage.getItem('user')).employeeId
             return http
-            .get(`/api/employee/${id}/shares`)
+            .get(`/api/employee/${uuid}`)
             .then( response => {
-                for(const share of response.data.shares){
-                    if(!share.imageUrl){
-                        // display a default image when no image has been provided
-                        share.imageUrl = 'http://localhost:4000/images/story.jpg'
+                const id = response.data.id
+                return http
+                .get(`/api/employee/${id}/shares`)
+                .then( response => {
+                    for(const share of response.data.shares){
+                        if(!share.imageUrl){
+                            // display a default image when no image has been provided
+                            share.imageUrl = 'http://localhost:4000/images/story.jpg'
+                        }
+
+                        // get the path to the article (link of the button "Lire")
+                        share.url = `/article/${share.employee_id}/${share.id}`
+
+                        this.shares.push(share)
+
+                        // hide message displayed when there are no articles shared
+                        this.noArticles = false
+                        
                     }
 
-                    // get the path to the article (link of the button "Lire")
-                    share.url = `/article/${share.employee_id}/${share.id}`
-
-                    this.shares.push(share)
-
-                    // hide message displayed when there are no articles shared
-                    this.noArticles = false
-                    
-                }
-
-                    
+                        
+                })
+            
+                
             })
             
         }

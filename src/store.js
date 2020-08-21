@@ -45,6 +45,7 @@ export default new Vuex.Store({
                 commit('SET_USER_DATA', data)
                 this.state.errMsg = null
                 return data.employeeId
+                
                     
             })
             .then( (id) => {

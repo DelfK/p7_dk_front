@@ -104,15 +104,12 @@
         },
 
         created(){
-            const id = JSON.parse(localStorage.getItem('user')).employeeId
-            this.userId = id
-            http.get(`/api/employee/${id}`)
-            .catch((error) => {
-                console.log('error', error)
-                
+            const uuid = JSON.parse(localStorage.getItem('user')).employeeId
+            return http
+            .get(`/api/employee/${uuid}`)
+            .then( response => {
+                this.userId = response.data.id
             })
-            
-        
           
         },
 

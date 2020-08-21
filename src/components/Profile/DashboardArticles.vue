@@ -47,27 +47,35 @@
                 
         created(){
             //display the articles created by the user
-            const id = JSON.parse(localStorage.getItem('user')).employeeId
+            const uuid = JSON.parse(localStorage.getItem('user')).employeeId
             return http
-            .get(`/api/employee/${id}/stories`)
-            .then( response => {
-                for(const article of response.data){
-                    if(!article.imageUrl){
-                        // display a default image when no image provide by the user
-                        article.imageUrl = 'http://localhost:4000/images/story.jpg'
-                    }
+            .get(`/api/employee/${uuid}`)
+            .then( employee => {
+                const id = employee.data.id
+                return http
+                .get(`/api/employee/${id}/stories`)
+                .then( response => {
+                    for(const article of response.data){
+                        if(!article.imageUrl){
+                            // display a default image when no image provide by the user
+                            article.imageUrl = 'http://localhost:4000/images/story.jpg'
+                        }
 
-                    // get the path to the article
-                    article.url = `/article/${article.employee_id}/${article.id}`
+                        // get the path to the article
+                        article.url = `/article/${article.employee_id}/${article.id}`
 
-                    // put the article in the articles array
-                    this.articles.push(article)
+                        // put the article in the articles array
+                        this.articles.push(article)
 
-                    // hide the message displayed when there are no articles
-                    this.noArticles = false
-                    
-                }      
+                        // hide the message displayed when there are no articles
+                        this.noArticles = false
+                        
+                    }      
+                })
+
+
             })
+            
             
             
         },
