@@ -16,7 +16,7 @@
                         <div class="date">{{comment.dateCreated | moment("dddd Do MMMM YYYY")}}</div>
                         <div class="moderateBtn">
                             <button v-on:click="deleteComment(comment.id, index)" class="btn btn-edit">Supprimer</button>
-                            <button v-bind:class="{redBtn : comment.hide}" v-on:click="moderateComment(comment.id, comment.approuve, comment)" class="btn btn-edit approuver">{{comment.btnTitle}}</button>
+                            <button aria-live="polite" v-bind:class="{redBtn : comment.hide}" v-on:click="moderateComment(comment.id, comment.approuve, comment)" class="btn btn-edit approuver">{{comment.btnTitle}}</button>
                         </div>
 
                 </li>

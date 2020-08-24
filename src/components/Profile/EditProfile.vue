@@ -7,33 +7,33 @@
             <form @submit.prevent="submit">
 
                 <div class="imageEdit">
-                    <div class="avatarEdit">
+                    <div role="group" class="avatarEdit">
                         <img class="responsive-image" v-bind:src="profileImage" alt="">
-                        <input type="file" id="myFile" ref="file" name="filename" @change="onFileChange" accept="image/png, image/jpeg">  
+                        <input aria-live="polite" type="file" id="myFile" ref="file" name="filename" @change="onFileChange" accept="image/png, image/jpeg">  
                     </div>     
                 </div>
                 <p class="errorMsg">{{errorMsg}}</p>
 
-                <div class="editSection" :class="{'form-group--error': $v.name.$error }">
+                <div  role="group" class="editSection" :class="{'form-group--error': $v.name.$error }">
                     <label for="nom">Mon nom</label>
                     <input ref="name" type="text" id="nom" v-model="name" @input="setName($event.target.value)">
                 </div>
                 <div class="error" v-if="!$v.name.required">Ce champs est requis</div>
 
-                <div class="editSection" :class="{ 'form-group--error': $v.firstname.$error }">
+                <div  role="group" class="editSection" :class="{ 'form-group--error': $v.firstname.$error }">
                     <label for="prenom">Mon prénom</label>
                     <input ref="firstname" type="text" id="prenom" v-model="firstname" @input="setFirstname($event.target.value)">
                 </div>
                 <div class="error" v-if="!$v.firstname.required">Ce champs est requis</div>
 
-                <div class="editSection" :class="{ 'form-group--error': $v.email.$error }">
+                <div  role="group" class="editSection" :class="{ 'form-group--error': $v.email.$error }">
                     <label for="email">Mon email</label>
                     <input ref="email" type="email" id="email" v-model="email" @input="setEmail($event.target.value)">
                 </div>
                 <div class="error" v-if="!$v.email.required">Ce champs est requis</div>
                 <div class="error" v-if="!$v.email.email">L'email saisi n'est pas valide</div>
 
-                <div class="editSection" :class="{ 'form-group--error': $v.position.$error }">
+                <div  role="group" class="editSection" :class="{ 'form-group--error': $v.position.$error }">
                     <label ref="position" for="poste">Mon poste</label>
                     <input type="text" id="poste" v-model="position" @input="setPosition($event.target.value)">
                 </div>

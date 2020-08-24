@@ -5,7 +5,7 @@
             
             <input v-model="employeeName" list="employees" name="employee" id="employee">
             <datalist id="employees">
-                <option v-bind:key="employee.id" v-for="employee in employees">{{employee.first_name}} {{employee.name}}</option>  
+                <option required aria-required="true" v-bind:key="employee.id" v-for="employee in employees">{{employee.first_name}} {{employee.name}}</option>  
             </datalist>
             <input v-on:click.prevent="shareArticle" class="btn-primary" type="submit" value="Partager">
             <p class="validMsg" v-if="showMsg">{{msgValidation}} <span>&check;</span></p>

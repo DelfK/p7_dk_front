@@ -6,9 +6,9 @@
                 <div class="errorImg">
                     <div class="imageEdit" v-if="imageHided">
                         
-                        <div class="placeholderImg">
+                        <div role="group" class="placeholderImg">
                             <!--<img class="responsive-image" v-bind:src="contentImg" alt="">-->
-                            <input title="image choisie" type="file" id="myFile" ref="file" name="filename" @change="onFileChange" accept="image/png, image/jpeg">  
+                            <input aria-live="polite" title="image choisie" type="file" id="myFile" ref="file" name="filename" @change="onFileChange" accept="image/png, image/jpeg">  
                         </div> 
                             
                     </div>
@@ -21,9 +21,9 @@
                 </div>
                 
                 
-                <div class="editSection" :class="{'form-group--error': $v.title.$error }">
+                <div role="group" class="editSection" :class="{'form-group--error': $v.title.$error }">
                     <label for="title">Titre</label>
-                    <input ref="title" type="text" id="title" @input="setTitle($event.target.value)" v-model.trim="title">
+                    <input required aria-required="true" placeholder="Le titre de votre article" ref="title" type="text" id="title" @input="setTitle($event.target.value)" v-model.trim="title">
                 </div>
                 <template v-if="$v.title.$error">
                     <p class="error" v-if="!$v.title.required">Ce champs est requis</p>
@@ -33,9 +33,9 @@
                 
                 
 
-                <div class="editSection" :class="{ 'form-group--error': $v.content.$error }">
+                <div role="group" class="editSection" :class="{ 'form-group--error': $v.content.$error }">
                     <label for="content">Contenu</label>
-                    <textarea ref="content" id="content"  @input="setContent($event.target.value)" rows="20" v-model.trim="content">
+                    <textarea required aria-required="true" placeholder="Le contenu de votre article" ref="content" id="content"  @input="setContent($event.target.value)" rows="20" v-model.trim="content">
                     </textarea>     
                 </div>
                 <template v-if="$v.content.$error">

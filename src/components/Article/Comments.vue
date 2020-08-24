@@ -3,9 +3,9 @@
         <div class="commentForm" role="form">
             <h2>Répondre</h2>
             <form>
-                <div class="editSection" :class="{ 'form-group--error': $v.content.$error }">
+                <div role="group" class="editSection" :class="{ 'form-group--error': $v.content.$error }">
                     <label for="content">Commentaire</label>
-                    <textarea rows="6" ref="content" id="content" v-model.trim="content" @input="setContent($event.target.value)">
+                    <textarea required aria-required="true" placeholder="Votre commentaire" rows="6" ref="content" id="content" v-model.trim="content" @input="setContent($event.target.value)">
                     </textarea>     
                 </div>
                 

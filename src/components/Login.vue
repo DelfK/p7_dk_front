@@ -6,16 +6,16 @@
                 <!-- Welcome message for new users -->
                 <div v-if="this.$store.state.showValidSignIn" class="welcomeMessage">Bienvenue sur Groupomania, vous pouvez maintenant vous connecter pour lire et partager des articles</div>
             
-                <div :class="{ 'form-group--error': $v.email.$error }">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" v-model.trim="email" @input="setEmail($event.target.value)">
+                <div role="group" :class="{ 'form-group--error': $v.email.$error }">
+                    <label for="email">Email <span class="instructions">*requis</span></label>
+                    <input required aria-required="true" type="email" id="email" v-model.trim="email" @input="setEmail($event.target.value)">
                 </div>
                 <div class="error" v-if="!$v.email.required">Ce champs est requis</div>
                 <div class="error" v-if="!$v.email.email">L'email saisi n'est pas valide</div>
                 
-                <div :class="{ 'form-group--error': $v.password.$error }">
-                    <label for="password" >Mot de passe</label>
-                    <input type="password" id="password" v-model.trim="password" @input="setPassword($event.target.value)">
+                <div role="group" :class="{ 'form-group--error': $v.password.$error }">
+                    <label for="password">Mot de passe <span class="instructions">* plus de 8 caractères alphanumériques</span></label>
+                    <input required aria-required="true" type="password" id="password" v-model.trim="password" @input="setPassword($event.target.value)">
                 </div>
                 <div class="error" v-if="!$v.password.required">Ce champs est requis</div>
                  <div class="envoyer">
@@ -99,7 +99,7 @@
         },
 
         beforeDestroy(){
-            this.$store.showValidSignIn = false
+            this.$store.state.showValidSignIn = false
         }
 
         

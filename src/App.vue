@@ -169,6 +169,11 @@ a{
 }
 
 /*FORMS*/
+.instructions{
+  font-size: 0.9rem;
+  color: #bbb;
+  margin: 0 10px;
+}
 
 label{
     font-size: 1rem;

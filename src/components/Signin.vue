@@ -3,9 +3,9 @@
         <div class="small-container" role="form">
             <h1>S'inscrire</h1>
             <form @submit.prevent="submit">
-                <div :class="{ 'form-group--error': $v.firstname.$error }">
-                    <label for="firstname">Prénom</label>
-                    <input  type="text" id="firstname" v-model.trim="firstname" @input="setFirstname($event.target.value)">  
+                <div role="group" :class="{ 'form-group--error': $v.firstname.$error }">
+                    <label for="firstname">Prénom <span class="instructions">*requis</span></label>
+                    <input  required aria-required="true" type="text" id="firstname" v-model.trim="firstname" @input="setFirstname($event.target.value)">  
                 </div>
                 
                     <div class="error" v-if="!$v.firstname.required">Ce champs est requis</div>
@@ -13,9 +13,9 @@
                     <div class="error" v-if="!$v.firstname.maxLength">Votre prénom ne doit pas contenir plus de {{$v.firstname.$params.maxLength.max}} lettres.</div>
                 
                 
-                <div :class="{ 'form-group--error': $v.name.$error }">
-                    <label for="name">Nom</label>
-                    <input  type="text" id="name" v-model.trim="name" @input="setName($event.target.value)">
+                <div role="group" :class="{ 'form-group--error': $v.name.$error }">
+                    <label for="name">Nom <span class="instructions">*requis</span></label>
+                    <input required aria-required="true" type="text" id="name" v-model.trim="name" @input="setName($event.target.value)">
                 </div>
              
                     <div class="error" v-if="!$v.name.required">Ce champs est requis</div>
@@ -24,9 +24,9 @@
 
               
                 
-                <div :class="{ 'form-group--error': $v.email.$error }">
-                    <label for="email">Email</label>
-                    <input  type="email" id="email" v-model.trim="email" @input="setEmail($event.target.value)">
+                <div role="group" :class="{ 'form-group--error': $v.email.$error }">
+                    <label for="email">Email <span class="instructions">*requis</span></label>
+                    <input required aria-required="true" type="email" id="email" v-model.trim="email" @input="setEmail($event.target.value)">
                 </div>
                 
                     <div class="error" v-if="!$v.email.required">Ce champs est requis</div>
@@ -34,9 +34,9 @@
                     <div class="error" v-if="!$v.email.maxLength">Votre email ne peut pas contenir plus de {{$v.email.$params.maxLength.max}} lettres.</div>
                 
                 
-                <div :class="{ 'form-group--error': $v.password.$error }">
-                    <label for="password" >Mot de passe</label>
-                    <input type="password" id="password" v-model.trim="password" @input="setPassword($event.target.value)">
+                <div role="group" :class="{ 'form-group--error': $v.password.$error }">
+                    <label for="password" >Mot de passe <span class="instructions">*requis</span></label>
+                    <input required aria-required="true" type="password" id="password" v-model.trim="password" @input="setPassword($event.target.value)">
                 </div>
                 
                     <div class="error" v-if="!$v.password.required">Ce champs est requis</div>
@@ -44,7 +44,7 @@
                     <div class="error" v-if="!$v.password.maxLength">Votre mot de passe ne doit pas contenir plus de {{$v.password.$params.maxLength.max}} lettres.</div>
                     <div class="error" v-if="!$v.password.alphaNum">Votre mot de passe doit contenir au moins un chiffre</div>
                 
-                <div class="envoyer">
+                <div role="group" class="envoyer">
                     <button v-bind:class="{ inactive: !btnSubmit }" v-on:click="sendData" class="btn btn-primary" type="submit" :disabled="btnSubmit === false">Envoyer</button>
                     <p class="validateMsg" v-if="submitStatus === 'OK' && emailUnique">Merci! Vos informations ont bien été transmises</p>
                     <p class="errorMsg">{{errorUserExist}}</p>
