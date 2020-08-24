@@ -1,13 +1,13 @@
 <template>
     
         <div class="small-container">
-            <div class="nav">
-                <div v-bind:class="{active: showArticles, hover: showShares }" class="nav_item" v-on:click="toggleArticles">Mes articles</div>
-                <div v-bind:class="{active: showShares, hover: showArticles }" class="nav_item" v-on:click="toggleShares">Partagés avec moi</div>
+            <div class="nav" role="navigation">
+                <div aria-haspopup="true" v-bind:class="{active: showArticles, hover: showShares }" class="nav_item" v-on:click="toggleArticles">Mes articles</div>
+                <div aria-haspopup="true" v-bind:class="{active: showShares, hover: showArticles }" class="nav_item" v-on:click="toggleShares">Partagés avec moi</div>
             </div>
-            <div class="toggledContent">
-                <articles v-if="showArticles"></articles>
-                <articlesShared v-if="showShares"></articlesShared>
+            <div class="toggledContent" role="contentinfo">
+                <articles v-if="showArticles" v-bind:aria-expanded="articlesExpanded"></articles>
+                <articlesShared v-if="showShares" v-bind:aria-expanded="sharesExpanded"></articlesShared>
                 
             </div>
         </div>
@@ -26,7 +26,9 @@
         data() {
             return {
                 showArticles: true,
-                showShares: false
+                showShares: false,
+                articlesExpanded: null,
+                sharesExpanded: null
             }
         },
 
@@ -39,11 +41,15 @@
             toggleArticles: function(){
                 this.showArticles = true
                 this.showShares = false
+                this.articlesExpanded = true
+                this.sharesExpanded = false
             },
 
             toggleShares: function(){
                 this.showArticles = false
                 this.showShares = true
+                this.articlesExpanded = false
+                this.sharesExpanded = true
             }
         }
     }

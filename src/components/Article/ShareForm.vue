@@ -1,5 +1,5 @@
 <template>
-    <div class="shareForm">
+    <div class="shareForm" role="form">
 
         <form>
             

@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="small-container">
+        <div class="small-container" role="contentinfo">
             <h1>Commentaires de la communauté</h1>
             <div class="noComments" v-if="noComments"><img src="../assets/interrogation.svg" alt=""></div>
             <ul>

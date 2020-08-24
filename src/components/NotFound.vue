@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="small-container notfound">
-            <img src="../assets/error.svg" alt="">
+            <img src="../assets/error.svg" alt="erreur 404">
         </div>
         
     </div>

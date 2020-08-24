@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="commentForm">
+        <div class="commentForm" role="form">
             <h2>Répondre</h2>
             <form>
                 <div class="editSection" :class="{ 'form-group--error': $v.content.$error }">
@@ -27,7 +27,7 @@
             </form>
 
         </div>
-        <div class="commentslist">
+        <div class="commentslist" role="complementary">
             
             <ul>
                 <li v-bind:key="index" v-for="(comment, index) in comments">

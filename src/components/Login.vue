@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="small-container">
+        <div class="small-container" role="form">
             <h1>Se connecter</h1>
             <form>
                 <!-- Welcome message for new users -->

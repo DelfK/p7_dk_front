@@ -1,7 +1,7 @@
 <template>
     <div class="container">
 
-        <div class="small-container">
+        <div class="small-container" role="form">
 
             <h1>Mes infos</h1>
             <form @submit.prevent="submit">

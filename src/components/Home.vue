@@ -1,20 +1,20 @@
 <template>
     <div class="container">
-        <div class="small-container">
+        <div class="small-container" role="main">
             <h2>Articles de la communauté</h2>
             
-            <ul>
+            <ul role="contentinfo">
                 <li v-bind:key="index" v-for="(article, index) in allArticles">
                     <div class="articleResult">
-                        <router-link v-bind:to="`/article/${article.employee_id}/${article.id}`">
+                        <router-link role="link" v-bind:to="`/article/${article.employee_id}/${article.id}`">
                             <div class="vignette">
-                                <img v-bind:src="article.imageUrl" alt="vers le contenu de l'article">
+                                <img role="link" v-bind:src="article.imageUrl" alt="vers le contenu de l'article">
                             </div>
                         </router-link>
                         <div class="details">
                             
                             <div>
-                                <router-link v-bind:to="`/article/${article.employee_id}/${article.id}`"><h3>{{article.title}}</h3></router-link>
+                                <router-link  role="link" v-bind:to="`/article/${article.employee_id}/${article.id}`"><h3>{{article.title}}</h3></router-link>
                                 <p>{{article.content.slice(0, 130)}}...</p>
                             </div>
                             <div class="auteur">
@@ -24,7 +24,7 @@
                                 <div class="partage">
                                     <div class="comment"></div>
                                     <div class="share">
-                                        <router-link v-bind:to="`/article/${article.employee_id}/${article.id}`"><img class="responsive-image" src="../assets/connection.svg" alt="vers le contenu de l'article"></router-link>
+                                        <router-link role="link" v-bind:to="`/article/${article.employee_id}/${article.id}`"><img class="responsive-image" src="../assets/connection.svg" alt="vers le contenu de l'article"></router-link>
                                     </div>
                                 </div>
                             </div>  

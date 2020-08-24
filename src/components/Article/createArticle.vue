@@ -1,6 +1,6 @@
 <template>
-    <div class="container">
-        <div class="small-container">
+    <div class="container" role="main">
+        <div class="small-container" role="form">
             <h1>Rédiger un article</h1>
             <form>
                 <div class="errorImg">
@@ -212,13 +212,14 @@
                             }
 
                         )
-                        .then( () =>{
+                        .then( ( response) =>{
                             this.validMsg = true
-                            console.log("story créée")
                             this.title = null
                             this.content = null
                             this.previewImg = null
                             this.imageHided = true
+                            this.storyId = response.data.story.id
+                            
 
                             // reset btn to default (disabled)
                             this.btnSubmit = false
@@ -226,6 +227,9 @@
                             // prevent display of error when submit OK
                             this.$v.title.$reset()
                             this.$v.content.$reset()
+
+                            this.$router.push(`/article/${this.userId}/${this.storyId}`)
+                            
                         })
                         .catch( (error) => {
                             const errors = error.response.data

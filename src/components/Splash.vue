@@ -8,7 +8,7 @@
                     Votre compte a bien été désactivé.
                     </div>
             
-                    <welcome></welcome>            
+                    <welcome role="naviguation"></welcome>            
                 </div>
         </div>
 

@@ -1,6 +1,6 @@
 <template>
     <main role="main" class="container">
-        <div class="small-container">
+        <div class="small-container" role="contentinfo">
             <h1>{{articleTitle}}</h1>
             <div class="auteurDate">
                     <div class="profile">

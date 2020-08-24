@@ -1,11 +1,11 @@
 <template>
     <div class="container">
-        <div class="small-container">
+        <div class="small-container" role="contentinfo">
             <div class="persoInfos">
                 <div class="fullName">
                     <h1>{{firstName}} {{name}}</h1>
                     <p>{{position}}</p>
-                    <div v-on:click="goToProfileEdit" class="btn btn-edit">Editer mon profil</div>
+                    <div role="link" v-on:click="goToProfileEdit" class="btn btn-edit">Editer mon profil</div>
                     
                 </div>
                 
