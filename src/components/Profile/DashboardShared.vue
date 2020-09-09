@@ -39,45 +39,106 @@
         data() {
             return {
                 shares: [],
-                noArticles: true
+                noArticles: true,
+                id: null
             }
         },
 
-        created(){
-            // display articles shared with the user
-            const uuid = JSON.parse(localStorage.getItem('user')).employeeId
-            return http
-            .get(`/api/employee/${uuid}`)
-            .then( response => {
-                const id = response.data.id
+        methods: {
+            getInitialsStories(){
+                // display articles shared with the user
+                const uuid = JSON.parse(localStorage.getItem('user')).employeeId
                 return http
-                .get(`/api/employee/${id}/shares`)
+                .get(`/api/employee/${uuid}`)
                 .then( response => {
-                    for(const share of response.data.shares){
-                        if(!share.imageUrl){
-                            // display a default image when no image has been provided
-                            share.imageUrl = 'http://localhost:4000/images/story.jpg'
+                     this.id = response.data.id
+                    return http
+                    .get(`/api/employee/${this.id}/shares?limit=5&offset=0`)
+                    .then( response => {
+                        for(const share of response.data.shares){
+                            if(!share.imageUrl){
+                                // display a default image when no image has been provided
+                                share.imageUrl = 'http://localhost:4000/images/story.jpg'
+                            }
+
+                            // get the path to the article (link of the button "Lire")
+                            share.url = `/article/${share.employee_id}/${share.id}`
+
+                            this.shares.push(share)
+
+                            // hide message displayed when there are no articles shared
+                            this.noArticles = false   
                         }
-
-                        // get the path to the article (link of the button "Lire")
-                        share.url = `/article/${share.employee_id}/${share.id}`
-
-                        this.shares.push(share)
-
-                        // hide message displayed when there are no articles shared
-                        this.noArticles = false
                         
-                    }
-
                         
+                    })
                 })
-            
-                
-            })
-            
-        }
+            },
 
+            scroll(shares){
+                window.onscroll = () => {
+                    // calculate the bottom of window
+                    let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight ? true : false;
+                    
+                    // we want to display the next story after all already displayed stories
+                    const offset = shares.length;
+                    // when at the bottom of window, get the next shared story and display it
+                    while(bottomOfWindow){
+                        return http
+                        .get(`/api/employee/${this.id}/shares?limit=1&offset=${offset}`)
+                        .then ( response => {
+                            const share = response.data.shares[0]
+                            
+                            if(!share.imageUrl){
+                                // display a default image when no image has been provided
+                                share.imageUrl = 'http://localhost:4000/images/story.jpg'
+                            }
+
+                            // get the path to the article (link of the button "Lire")
+                            share.url = `/article/${share.employee_id}/${share.id}`
+
+                            // add the story to the array shares to be displayed in the UI
+                            this.shares.push(share)
+                            
+
+                        })
+                    }
+                    console.log(document.documentElement.scrollTop)
+                    console.log(window.innerHeight)
+                    console.log(document.documentElement.offsetHeight)
+                    
+                       
+                    
+                }
+            }
+        },
+  
+
+        beforeMount(){
+            this.getInitialsStories()
+        },
+
+        mounted(){
+            this.scroll(this.shares)
+        }
     }
+                        
+
+
+
+
+
+
+
+              
+
+            
+                      
+            
+
+
+
+
 </script>
 
 <style scoped>
