@@ -32,6 +32,10 @@
                     </div>   
                 </li>       
             </ul>
+            <div class="center">
+                <paginate v-on:changePage="displayArticles($event)"></paginate>
+            </div>
+            
         </div>
     </div>
     
@@ -40,26 +44,46 @@
 <script>
 
     import http from '../services'
-
+    import Pagination from './Pagination'
     export default {
         name: 'Home',
-
+        components: {
+        'paginate': Pagination
+      
+        },
         data() {
             return {
                 allArticles: [],
-                employees:[]
+                employees:[],
+                limit: 5,
+                offset: 0,
+                
             }
         },
 
         // display all the employees' articles on homepage
         created(){
             return http
-            .get('/api/employee/stories')
+            .get(`/api/employee/stories?limit=${this.limit}&offset=${this.offset}`)
             .then(response => {
                 for(const article of response.data){
                     this.allArticles.push(article)
                 }  
             })
+        },
+
+        methods:{
+            displayArticles: function(offset){
+                this.allArticles = []
+                this.offset = offset
+                return http
+                .get(`/api/employee/stories?limit=${this.limit}&offset=${this.offset}`)
+                .then(response => {
+                    for(const article of response.data){
+                        this.allArticles.push(article)
+                    }  
+                })
+                }
         }
         
     }
@@ -67,6 +91,11 @@
 </script>
 
 <style scoped>
+.center{
+    width: 100%;
+    display: flex;
+    justify-content: center
+}
 
 h2{
     margin: 30px 0 30px 0
